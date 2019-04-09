@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -19,6 +20,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @MapperScan("com.jdw.*.mapper")
 //springboot 开启定时任务
 @EnableScheduling
+//springboot 开启异步
+@EnableAsync
 public class SpringbootApplication {
 
     public static void main(String[] args) {
