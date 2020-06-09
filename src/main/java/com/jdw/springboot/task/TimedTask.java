@@ -3,7 +3,6 @@ package com.jdw.springboot.task;
 import com.jdw.springboot.async.AsyncTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
