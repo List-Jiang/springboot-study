@@ -17,22 +17,10 @@ import javax.annotation.Resource;
 @SpringBootTest(classes = SpringbootApplication.class)
 @MapperScan("com.jdw.springboot")
 class SpringbootApplicationTests {
-
-    @Autowired
-    UserMapper userMapper;
-
-    @Autowired
-    IUserService service;
-
     @Test
     void contextLoads() {
         String e4c402cc1617adfe = AES.decrypt("7REK79KuhjwO8SEYPYF8DcGjWGysUH1C606MMw0SNmGakcy2Ri9/MAZY/3UHgr4nAjRyDPBdexyiajCBnyDim+55l+iou2CjwMKcPt4l2spNaQ0joBoxVxKzLWUcZVzvECUTSgdrWGsG7quOa/K19YT/RpypcgHDMVnNCk04ork=", "e4c402cc1617adfe");
         String ttt = AES.encrypt("jdbc:mysql://localhost:3306/test2?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8", "e4c402cc1617adfe");
-        User userById = userMapper.selectById("4");
-        User userById2 = userMapper.selectById("4");
-        User byId = service.getUserById(4l);
-
-        System.out.println(userById);
     }
 
 }

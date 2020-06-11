@@ -8,11 +8,18 @@
         <version>2.2.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <!--模块结构-->
     <groupId>com.jdw</groupId>
-    <artifactId>springboot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>springboot</name>
+    <!--模块名称-->
+    <artifactId>study</artifactId>
+    <!--项目版本-->
+    <version>0.0.1-test</version>
+    <!--项目名字-->
+    <name>springboot-study</name>
+    <!--项目说明-->
     <description>Demo project for Spring Boot</description>
+    <!--配置打包方式 jar/war springboot一般推荐使用jar-->
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,10 +30,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--AOP配置 start-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        <!--AOP配置 end-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -59,7 +68,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--Mybatis plus 开始-->
+        <!--Mybatis plus start-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -70,7 +79,7 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.3.2</version>
         </dependency>
-        <!--Mybatis plus 结束-->
+        <!--Mybatis plus end-->
         <!--多数据源-->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -78,14 +87,14 @@
             <version>2.5.6</version>
         </dependency>
         <!--多数据源-->
-        <!--前端模板引擎-->
+        <!--前端模板引擎 start-->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
             <version>2.3.30</version>
         </dependency>
-        <!--前端模板引擎-->
-        <!--shiro引用-->
+        <!--前端模板引擎 end-->
+        <!--shiro引用 start-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
@@ -96,7 +105,7 @@
             <artifactId>shiro-ehcache</artifactId>
             <version>1.4.0</version>
         </dependency>
-        <!--shiro引用-->
+        <!--shiro引用 end-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
@@ -110,7 +119,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
-        <!--swagger-->
+        <!--swagger start-->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -121,20 +130,20 @@
             <artifactId>shiro-ehcache</artifactId>
             <version>1.4.0-RC2</version>
         </dependency>
-        <!--swagger-->
-        <!--AOP配置 start-->
-
-
-        <!--AOP配置 end-->
+        <!--swagger end-->
     </dependencies>
-
+    <!--项目打包配置，必须有 start-->
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--配置项目启动类 打包可以不配置，配置的话一定要配置对-->
+                    <mainClass>com.jdw.springboot.SpringbootApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-
+    <!--项目打包配置，必须有 end-->
 </project>
