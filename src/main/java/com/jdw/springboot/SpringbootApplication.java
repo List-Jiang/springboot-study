@@ -15,11 +15,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootApplication
 //springboot 设置 component 扫描路径
-@ComponentScan(basePackages = {"com.jdw.*.*"})
+@ComponentScan(basePackages = {"com.jdw.*.*","com.jdw.*.*.*"})
 //springboot 设置 mapper 扫描路径
 @MapperScan("com.jdw.*.mapper")
 //springboot 开启定时任务
-@EnableScheduling
+//@EnableScheduling
 //springboot 开启异步
 @EnableAsync
 public class SpringbootApplication {
