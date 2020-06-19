@@ -55,9 +55,9 @@ mybatis-plus:
       logic-not-delete-value: 1
   #通用枚举类扫描 支持统配符 * 或者 ; 分割
   typeEnumsPackage: com.jdw.springboot.enums
-#  configuration:
-#    #打印 sql
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    #打印 sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #配置简单请求路径
 #simple-view-controllers:
 #  views:

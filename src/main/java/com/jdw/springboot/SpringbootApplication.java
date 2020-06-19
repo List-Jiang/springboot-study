@@ -3,15 +3,21 @@ package com.jdw.springboot;
 //import com.jdw.springboot.entity.User;
 //import com.jdw.springboot.mapper.UserMapper;
 
+import com.jdw.sys.service.IUserService;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @SpringBootApplication
 //springboot 设置 component 扫描路径
@@ -22,14 +28,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 //@EnableScheduling
 //springboot 开启异步
 @EnableAsync
+//springboot 开启注解
+@EnableCaching
 public class SpringbootApplication {
-
+    @Autowired
+    //懒加载，使用时创建注入。
+    @Lazy
+    private static IUserService userService;
     public static void main(String[] args) {
         SpringApplication.run(SpringbootApplication.class, args);
-        for (String t:
-             args) {
+        List<String> strings = userService.AllAccount();
+        strings.forEach(t->{
             System.out.println(t);
-        }
+        });
     }
 
     /**

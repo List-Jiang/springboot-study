@@ -3,6 +3,7 @@ package com.jdw.sys.service.impl;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper;
 import com.jdw.sys.entity.*;
 import com.jdw.sys.mapper.*;
@@ -15,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +46,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Autowired
     PermissionsMapper permissionsMapper;
+
+    @Override
+    public List<String> AllAccount() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        List<User> users = userMapper.selectList(wrapper);
+        List<String> account = new ArrayList<>();
+        users.forEach(st->{
+            account.add(st.getAccount());
+        });
+        return account;
+    }
 
     /**
      * 通过用户id获取用户信息
