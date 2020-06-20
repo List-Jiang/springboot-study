@@ -11,6 +11,8 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -34,6 +36,15 @@ public class UserRealm extends AuthorizingRealm {
     IUserService service;
     @Resource
     UserMapper mapper;
+
+    /**
+     *   修改凭证匹配器，
+     *   该匹配器 校验 的时候会进行MD5加密并散射1024次后再进行 equal 比较
+     *   加盐
+     *   String password_md5 = (new Md5Hash("123","salt",1024)).toHex();
+     *   未加盐
+     *   String password_md5 = (new Md5Hash("123",1024)).toHex();
+     */
     //非静态代码块，在创建对象的时候运行（即new一个对象的时候），每创建一次对象就执行一次
     {
         //手动设置 realm 的凭证匹配器
@@ -45,19 +56,31 @@ public class UserRealm extends AuthorizingRealm {
         setCredentialsMatcher(credentialsMatcher);
     }
     /**
-     * 授权
-     * @param principals
-     * @return
+     * 授权 通过认证证书主体获取权限,
+     * 每次用户判断是否拥有某一个权限时，会先去缓存里面查询是否保存了这个用户的相关缓存。没有的话会调用这个方法再判断。
+     * @param principals 凭证主体，例如，account、username、userId等
+     * @return 权限
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        String s = principals.getPrimaryPrincipal().toString();
+        log.info("用户主体是："+s);
+        //创建简单授权信息对象
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //添加角色
+        info.addRole("super");
+        info.addRole("admin");
+        info.addRole("simple");
+        //添加自定义 字符串权限       角色：操作：资源
+        info.addStringPermission("super:*:01");
+        info.addStringPermission("admin:*:01");
+        return info;
     }
 
     /**
-     * 认证
-     * @param token
-     * @return
+     * 认证  subject.login(token)会调用这里返回认证证书用户认证
+     * @param token 登录token
+     * @return 认证证书
      * @throws AuthenticationException
      */
     @Override
