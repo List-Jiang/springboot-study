@@ -30,6 +30,7 @@ import java.util.Set;
  * @since 2020-05-27
  */
 @Service
+//配置独立数据源
 //@DS("test_2")
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Autowired(required = false)

@@ -42,6 +42,10 @@ class SpringbootApplicationTests {
 
     @Test
     public void test1(){
+        List<String> strings = userService.AllAccount();
+        strings.forEach(t->{
+            System.out.println(t);
+        });
         //1、创建安全管理器对象
         DefaultSecurityManager securityManager = new DefaultSecurityManager();
         //2、给安全管理器设置 realm

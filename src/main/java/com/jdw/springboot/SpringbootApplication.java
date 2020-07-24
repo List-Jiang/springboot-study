@@ -28,19 +28,11 @@ import java.util.List;
 //@EnableScheduling
 //springboot 开启异步
 @EnableAsync
-//springboot 开启注解
+//springboot 开启缓存
 @EnableCaching
 public class SpringbootApplication {
-    @Autowired
-    //懒加载，使用时创建注入。
-    @Lazy
-    private static IUserService userService;
     public static void main(String[] args) {
         SpringApplication.run(SpringbootApplication.class, args);
-        List<String> strings = userService.AllAccount();
-        strings.forEach(t->{
-            System.out.println(t);
-        });
     }
 
     /**
