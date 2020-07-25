@@ -2,8 +2,12 @@ package com.jdw.springboot.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ListJiang
@@ -15,8 +19,27 @@ import org.springframework.stereotype.Component;
 @Configuration
 // lombok 实体注解
 @Data
+//自定义参数空间，会自动扫描 custom 下的所有配置参数(默认支持驼峰转换)并尝试注入到该实体类的同名属性中。
+@ConfigurationProperties("custom")
 public class CustomVariableConfig {
-    //从 application 配置文件中获取 custom.value1 的值 “测试参数1” 注入到 customValue1。
-    @Value("${custom.value1}")
+
+    /*
+    @Value("#{${custom.map}}")
+    private Map<String,String> map;
+    此时失效，项目启动出错，但是该语法放入controller类下可以直接使用。
+     */
+    /**
+     * 由于 已使用ConfigurationProperties注解，该 Value 注解可以忽略。
+     * 而且，在ConfigurationProperties配置类下，Value注解的支持非常不友好，只支持基础类型注入，
+     * 不建议混用。
+     */
+
+    @Value("${custom.customValue1}")
     private String customValue1;
+
+    /**
+     * 参数名默认驼峰转换 simple-view-controllers——>simpleViewControllers
+     */
+    private List<Map<String,String>> simpleViewControllers;
+
 }
