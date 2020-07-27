@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @date 2020/7/2420:50
  */
 @Component
-public class TaskPoolConfig {
+public class ThreadPoolConfig {
     @Bean(name = "threadPool")
     public Executor taskExecutor(){
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();

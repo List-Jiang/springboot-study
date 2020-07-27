@@ -23,6 +23,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <hutool.version>5.0.7</hutool.version>
     </properties>
 
     <dependencies>
@@ -154,6 +155,22 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <!--springboot开启缓存 end-->
+        <!--kafka引入 start-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <!--kafka引入 end-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-json</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
     </dependencies>
     <!--项目打包配置，必须有 start-->
     <build>

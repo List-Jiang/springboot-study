@@ -3,7 +3,6 @@ package com.jdw.springboot.config;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,13 +15,12 @@ import java.util.Map;
  * @date 2020/6/1010:15
  */
 // 标明这是一个配置类
-@Configuration
+@Component
 // lombok 实体注解
 @Data
 //自定义参数空间，会自动扫描 custom 下的所有配置参数(默认支持驼峰转换)并尝试注入到该实体类的同名属性中。
 @ConfigurationProperties("custom")
 public class CustomVariableConfig {
-
     /*
     @Value("#{${custom.map}}")
     private Map<String,String> map;
