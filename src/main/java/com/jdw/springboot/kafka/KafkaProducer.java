@@ -3,10 +3,15 @@ package com.jdw.springboot.kafka;
 import cn.hutool.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author ListJiang
@@ -21,7 +26,17 @@ import org.springframework.web.bind.annotation.*;
 public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String,Object> kafkaTemplate;
+    @Autowired
+    private RequestMappingHandlerMapping requestMappingHandlerMapping;
 
+    @RequestMapping(value = "/getAllUrl", method = RequestMethod.GET)
+    public Set<String> getAllUrl() {
+        // url与方法的对应关系
+        Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
+        Set<String> urls = new HashSet<>();
+        handlerMethods.keySet().forEach(handlerMethod -> urls.addAll(handlerMethod.getPatternsCondition().getPatterns()));
+        return urls;
+    }
     @GetMapping("/send")
     public String sendMessage(@RequestBody JSONObject jsonObject){
         kafkaTemplate.send("topic1", jsonObject.toString());
