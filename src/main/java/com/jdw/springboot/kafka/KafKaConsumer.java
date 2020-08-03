@@ -16,7 +16,7 @@ import java.util.Optional;
  * @date 2020/7/2615:22
  */
 //举手交给spring管理
-@Component
+//@Component
 public class KafKaConsumer {
 
     @KafkaListener(topics = "topic1")

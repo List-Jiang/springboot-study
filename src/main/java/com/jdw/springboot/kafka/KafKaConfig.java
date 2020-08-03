@@ -11,7 +11,7 @@ import java.util.List;
  * @remark
  * @date 2020/7/2619:23
  */
-@ConfigurationProperties("kafka.topic")
+//@ConfigurationProperties("kafka.topic")
 @Data
 public class KafKaConfig {
     private String groupId;

@@ -1,10 +1,22 @@
 package com.jdw.springboot.task;
 
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static cn.hutool.http.Method.GET;
 
 /**
  * @author ListJiang
@@ -119,5 +131,59 @@ public class TaskPoolTest {
         pool.shutdown();
     }
 
+
+    @Test
+    public void DiscardOldestPolicyDemo1() throws InterruptedException {
+        // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(10, 50, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(20));
+        // 设置线程池的拒绝策略为"丢弃队列最老等待任务"
+        pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
+
+        String url = "http://localhost:8082/api1/forward/gcjs_lhch_wt/1c4e88acd48d0c03783a1441075cb160?i=1";
+        String url2 = "http://localhost:8082/getChukuNumber?type=ewfrqw";
+        String url3 = "http://localhost:8082/getChukuNumber2?type=ewrew";
+        JSONObject jsonObject = JSONUtil.parseObj("{\n" +
+                "    \"key\":\"value\",\n" +
+//                "    \"i\":\"1\"\n" +
+                "}");
+        // 新建10个任务，并将他们添加到线程中
+        for (int i = 0; i < 10; i++) {
+            int finalI = i;
+            pool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    jsonObject.put("i",finalI+1);
+                    String body = HttpUtil.createPost(url2).execute().body();
+//                    String body = "HttpUtil.createPost(url).body(jsonObject.toString()).execute().body()";
+                    System.out.println("第" + (finalI+1) + "个任务："+body);
+                }
+            });
+        }
+        pool.shutdown();
+    }
+
+    @Test
+    public void test(){
+        String str = "[/apifile/mongo/view/{_id} || /apifile/mongo/view/{_id}]";
+        if (str.indexOf('[')==0&&str.indexOf(']')==str.length()-1){
+            String substring = str.substring(1, str.length() - 1);
+            String string = substring.replaceAll("\\|\\|", ",").replaceAll(" ","");
+            System.out.println(string);
+        }
+        String url2 = "http://localhost:8082/readThreadPool?type=ewfrqw";
+        JSONObject jsonObject = JSONUtil.parseObj("{\n" +
+                "    \"key\":\"value\",\n" +
+//                "    \"i\":\"1\"\n" +
+                "}");
+        Map<String,String> t = new HashMap<>();
+        t.put("dfsdfs","fsdfs");
+        t.put("dfsdfs","放大方式");
+        System.out.println(t.toString());
+        for (int i = 0; i < 10; i++) {
+            String body = HttpUtil.createPost(url2+i).body(jsonObject.toString()).execute().body();
+            System.out.println(body);
+        }
+
+    }
 
 }

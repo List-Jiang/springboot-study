@@ -30,6 +30,7 @@ public class ControllerAspect {
 //    扫描注解
 //    @Pointcut(value = "@annotation(org.springframework.web.bind.annotation.GetMapping)")
 //    扫描 com.jdw.sys.controller 下的类及其下面子包内的类 的 访问修饰符为 public 方法(public可以不设置,则扫描所有)
+//    注意事项：面向切面编程，最小的交互面是类，而不是方法。方法是在类的面上的一块。
     @Pointcut(value = " execution(public * com.jdw.sys.controller..*.*(..))")
     public void webLog() {
     }

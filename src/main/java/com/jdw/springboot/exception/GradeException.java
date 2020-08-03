@@ -21,6 +21,6 @@ public class GradeException {
     public String runTimeException(Exception exception){
         //控制台输出异常
         exception.printStackTrace();
-        return "这里是全局捕获运行异常";
+        return exception.getMessage();
     }
 }

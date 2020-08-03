@@ -61,8 +61,8 @@ spring:
     view:
       prefix: /
       suffix: .jsp
-  # kafka配置
-  kafka:
+  # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
+#  kafka:
     # Kafka集群
     bootstrap-servers: 127.0.0.1:9091,127.0.0.1:9092,127.0.0.1:9093
     # Kafka生产者配置
