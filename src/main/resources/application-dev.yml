@@ -142,8 +142,9 @@ mybatis-plus:
 #自定义参数配置
 custom:
   customValue1: 测试参数1
-  # value注解 搭配使用案例
+  # value注解 map案例,外面的双引号可用可不用
   map: "{ds: '发送失败',ds3: '未发送,ds4: 发送成功'}"
+  # value注解 list使用案例,外面的双引号可用可不用
   list1: "test,test32"
   # ConfigurationProperties注解 搭配使用案例
   #配置简单请求路径，需要搭建自己的处理器，该配置方式必须有使用 ConfigurationProperties注解 的参数配置类引入，好像不可以使用 value注解 解析
