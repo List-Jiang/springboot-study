@@ -24,14 +24,14 @@ public class CustomVariableConfig {
     /*
     @Value("#{${custom.map}}")
     private Map<String,String> map;
-    此时失效，项目启动出错，但是该语法放入controller类下可以直接使用。
+    类使用ConfigurationProperties注解时失效，项目启动出错，但是该语法放入controller类下可以直接使用。
      */
+
     /**
      * 由于 已使用ConfigurationProperties注解，该 Value 注解可以忽略。
      * 而且，在ConfigurationProperties配置类下，Value注解的支持非常不友好，只支持基础类型注入，
      * 不建议混用。
      */
-
     @Value("${custom.customValue1}")
     private String customValue1;
 
