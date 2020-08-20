@@ -3,6 +3,10 @@ server:
   servlet:
     context-path:
 spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
   datasource:
     dynamic:
       #阿里巴巴德鲁伊连接池配置

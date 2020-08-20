@@ -2,6 +2,7 @@ package com.jdw.sys.controller;
 
 import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -13,9 +14,10 @@ import org.springframework.web.context.request.async.WebAsyncTask;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeoutException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.concurrent.*;
 
 /**
  * @author ListJiang
@@ -124,5 +126,31 @@ public class AsyncController {
             }
         });
         return webAsyncTask;
+    }
+
+    /**
+     * 主线程开子线程异步执行多个任务，全部执行完毕后主线程结束。
+     */
+    @RequestMapping("/asyncSyncTask")
+    public void asyncSyncTask(){
+        long startTime = Instant.now().toEpochMilli();
+        //线程程池提交一个callable
+        Future submit1 = treadPool.submit(()->{ Thread.sleep(1000); return "第一个任务睡了1秒"; });
+        Future submit2 = treadPool.submit(()->{ Thread.sleep(2000); return "第一个任务睡了2秒"; });
+        Future submit3 = treadPool.submit(()->{ Thread.sleep(3000); return "第一个任务睡了3秒"; });
+        try {
+            //获取结果，并设置获取结果动作的超时时间，超时会抛出TimeoutException异常
+            System.out.println(submit3.get(2, TimeUnit.SECONDS).toString());
+            System.out.println(submit1.get(2, TimeUnit.SECONDS).toString());
+            System.out.println(submit2.get(2, TimeUnit.SECONDS).toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        long enDtime = Instant.now().toEpochMilli();
+        System.out.println("所有任务总共执行时间为"+(enDtime-startTime)+"ms");
     }
 }
