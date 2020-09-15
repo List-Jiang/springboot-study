@@ -21,8 +21,8 @@ import java.util.Base64;
  */
 public class EncrypRSA {
 
-    private static final String PUBLIC = "PUBLIC";
-    private static final String PRIVATE = "PRIVATE";
+    public static final String PUBLIC = "PUBLIC";
+    public static final String PRIVATE = "PRIVATE";
 
 
     /**
