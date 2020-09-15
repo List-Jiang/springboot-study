@@ -105,7 +105,7 @@ public class EncrypRSA {
      * @param cleartext  明文
      */
     public byte[] encrypt(RSAPrivateKey privateKey, String cleartext) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        if (!StringUtils.isEmpty(privateKey)) {
+        if (privateKey != null) {
             return encrypt(privateKey, cleartext.getBytes());
         }
         return null;
