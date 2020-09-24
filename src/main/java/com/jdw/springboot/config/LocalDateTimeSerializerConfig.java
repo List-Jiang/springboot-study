@@ -1,7 +1,10 @@
 package com.jdw.springboot.config;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,13 +18,14 @@ import java.time.format.DateTimeFormatter;
 /**
  * @author ListJiang
  * @class LocalDateTime序列化配置
- * @remark 用于解决json转换时的格式异常
+ * @remark 用于解决json转换时的格式问题
  * @date 2020/8/2510:01
  */
 @Configuration
 public class LocalDateTimeSerializerConfig {
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
+    private static final String TIME_PATTERN = "HH:mm:ss";
 
     /**
      * string转localdate
@@ -63,11 +67,19 @@ public class LocalDateTimeSerializerConfig {
     }
 
     /**
-     * 对象转json localDateTime格式化规则
-     * @return
+     * 统一配置localdate、localdatetime、localtime转string
      */
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        return builder -> builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN)));
+    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
+        JavaTimeModule module = new JavaTimeModule();
+        LocalDateTimeDeserializer localDateTimeDeserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        module.addDeserializer(LocalDateTime.class, localDateTimeDeserializer);
+        return builder -> {
+            builder.simpleDateFormat(DATE_TIME_PATTERN);
+            builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_PATTERN)));
+            builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN)));
+            builder.serializers(new LocalTimeSerializer(DateTimeFormatter.ofPattern(TIME_PATTERN)));
+            builder.modules(module);
+        };
     }
 }

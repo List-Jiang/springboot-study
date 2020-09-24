@@ -65,6 +65,8 @@ spring:
     view:
       prefix: /
       suffix: .jsp
+  resource:
+    static-locations: classpath:/static/,classpath:/public/
   # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
 #  kafka:
     # Kafka集群
