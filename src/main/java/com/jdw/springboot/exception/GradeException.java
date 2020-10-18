@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author ListJiang
  * @class description  全局捕获异常类$
  * @remark 捕获全局异常统一返回页面或者提示信息
- * @date 2020/5/215:45
+ * @date 2020/5/2 15:45
  */
 @ControllerAdvice
 @Slf4j

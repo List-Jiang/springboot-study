@@ -23,3 +23,6 @@ ${AnsiColor.BRIGHT_YELLOW}
                // 佛祖保佑 永不宕机 永无BUG //
 
 ////////////////////////////////////////////////////////////////////
+${AnsiColor.BRIGHT_GREEN}
+Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
+${AnsiColor.BLACK}
