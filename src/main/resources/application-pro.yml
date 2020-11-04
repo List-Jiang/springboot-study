@@ -35,7 +35,7 @@ spring:
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       #设置默认的数据源或者数据源组,默认值即为master
       primary: test_1
-      #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源.
+      #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动会使用默认数据源.
       strict: true
       datasource:
         test_1:
@@ -163,3 +163,5 @@ custom:
       templatePath: user/admin
     - urlParame: boss
       templatePath: user/boss
+  # 系统数据写接口匹配规则(正则表达式)，多个用逗号隔开。后续新增规则直接在此处添加即可
+  writeRegx: add.*,save.*,remove.*,update.*,batch.*,clear.*,add.*,append.*,modify.*,edit.*,insert.*,delete.*,do.*,creat.*

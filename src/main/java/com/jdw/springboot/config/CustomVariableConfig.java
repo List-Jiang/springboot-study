@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author ListJiang
@@ -39,5 +40,11 @@ public class CustomVariableConfig {
      * 参数名默认驼峰转换 simple-view-controllers——>simpleViewControllers
      */
     private List<Map<String,String>> simpleViewControllers;
+
+    /**
+     * 设置默认值
+     */
+    @Value("#{'${custom.writeRegx:add.*,save.*,remove.*,update.*,batch.*,clear.*,add.*,append.*,modify.*,edit.*,insert.*,delete.*,do.*,creat.*}'.split(',')}:['']")
+    private Set<String> writeRegx;
 
 }
