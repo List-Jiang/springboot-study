@@ -176,11 +176,94 @@
     <build>
         <plugins>
             <plugin>
+                <!--使用maven安装插件，本地安装jar包至maven空间，可直接使用-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>cn-tjsoft-control</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${project.basedir}/src/main/lib/control-core-1.0.1.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>cn.tjsoft</groupId>
+                            <artifactId>control-core</artifactId>
+                            <version>1.0.1</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- 跳过单元测试 -->
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <!-- 复制第三方 jar 到项目目录下的 target/lib/ 下 -->
+                    <execution>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeScope>provided</excludeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--配置项目启动类 打包可以不配置，配置的话一定要配置对-->
+                            <mainClass>com.jdw.springboot.SpringbootApplication</mainClass>
+                            <!-- 将所有第三方 jar 添加到项目 jar 的 MANIFEST.MF 文件中，这样运行 jar 时依赖包才能被加载 -->
+                            <addClasspath>true</addClasspath>
+                            <!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
+                            <classpathPrefix>./lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- repackage 时排除掉 第三方依赖 jar 文件，我们的可运行 Spring Boot 的 jar 文件瞬间变小 ^_^ -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <!--配置项目启动类 打包可以不配置，配置的话一定要配置对-->
-                    <mainClass>com.jdw.springboot.SpringbootApplication</mainClass>
+                    <includes>
+                        <include>
+                            <groupId>nothing</groupId>
+                            <artifactId>nothing</artifactId>
+                        </include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
