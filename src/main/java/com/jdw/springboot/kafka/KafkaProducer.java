@@ -37,10 +37,10 @@ public class KafkaProducer {
         handlerMethods.keySet().forEach(handlerMethod -> urls.addAll(handlerMethod.getPatternsCondition().getPatterns()));
         return urls;
     }
-    @GetMapping("/send")
+    @PostMapping("/send")
     public String sendMessage(@RequestBody JSONObject jsonObject){
         kafkaTemplate.send("topic1", jsonObject.toString());
-        kafkaTemplate.send("topic1",new Integer(3),"key",jsonObject.toString());
+        kafkaTemplate.send("testTopic",new Integer(1),"key",jsonObject.toString());
         return "OK";
     }
     @RequestMapping("/test")
@@ -49,3 +49,4 @@ public class KafkaProducer {
         return "发送成功";
     }
 }
+

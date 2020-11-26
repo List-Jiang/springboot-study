@@ -1,5 +1,6 @@
 package com.jdw.springboot.kafka;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,13 +17,15 @@ import java.util.Optional;
  * @date 2020/7/2615:22
  */
 //举手交给spring管理
-//@Component
+@Slf4j
+@Component
 public class KafKaConsumer {
 
     @KafkaListener(topics = "topic1")
     public void onMessage1(ConsumerRecord<?, ?> record){
         // 消费的哪个topic、partition的消息,打印出消息内容
-        System.out.println("简单消费："+record.topic()+"-"+record.partition()+"-"+record.value());
+        log.info("简单消费："+record.topic()+"-"+record.partition()+"-"+record.value());
+//        System.out.println("简单消费："+record.topic()+"-"+record.partition()+"-"+record.value());
     }
 
 
@@ -31,7 +34,7 @@ public class KafKaConsumer {
         Optional<Object> kafkaMassage = Optional.ofNullable(consumerRecord.value());
         if(kafkaMassage.isPresent()){
             Object o = kafkaMassage.get();
-            System.out.println("接收到的消息是："+o);
+            log.info("接收到的消息是："+o);
         }
 
     }

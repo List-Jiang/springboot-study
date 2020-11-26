@@ -24,6 +24,7 @@
     <properties>
         <java.version>1.8</java.version>
         <hutool.version>5.0.7</hutool.version>
+        <fastJson.version>1.2.72</fastJson.version>
     </properties>
 
     <dependencies>
@@ -162,14 +163,19 @@
         </dependency>
         <!--kafka引入 end-->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-json</artifactId>
-            <version>${hutool.version}</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastJson.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-http</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
         </dependency>
     </dependencies>
     <!--项目打包配置，必须有 start-->

@@ -68,9 +68,9 @@ spring:
   resource:
     static-locations: classpath:/static/,classpath:/public/
   # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
-#  kafka:
+  kafka:
     # Kafka集群
-    bootstrap-servers: 127.0.0.1:9091,127.0.0.1:9092,127.0.0.1:9093
+    bootstrap-servers: 172.165.165.101:9092,172.165.165.102:9092,172.165.165.103:9092
     # Kafka生产者配置
     producer:
       # 重试次数
