@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public interface IUserService extends IService<User> {
 
     User getUserById(@Param("id") Long id);
 
+    @Async
     List<User> getUserByName(@Param("name") String name);
     @Cacheable
     User getUserByAccount(@Param("account") String account);

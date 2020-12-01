@@ -86,19 +86,12 @@ public class ControllerAspect {
      * 如过环绕通知决定不执行目标方法,则其他切面注解定义的处理都不会执行.
      */
     @Around("webLog()")
-    public Object aroundAdvice(ProceedingJoinPoint proceedingJoinPoint) {
+    public Object aroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         log.info("- - - - - 环绕通知 - - - -");
         log.info("环绕通知的目标方法名：" + proceedingJoinPoint.getSignature().getName());
-        try {//obj之前可以写目标方法执行前的逻辑
-//            log.info("执行目标方法前执行");
-            Object obj = proceedingJoinPoint.proceed();//调用执行目标方法
-            return obj;//返回目标方法返回值
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        } finally {
-            log.info("- - - - - 环绕通知 end - - - -");
-        }
-        return null;
+        Object obj = proceedingJoinPoint.proceed();//调用执行目标方法
+        log.info("- - - - - 环绕通知 end - - - -");
+        return obj;//返回目标方法返回值
     }
 
 }
