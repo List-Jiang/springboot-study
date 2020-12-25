@@ -68,59 +68,59 @@ spring:
   resource:
     static-locations: classpath:/static/,classpath:/public/
   # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
-  kafka:
-    # Kafka集群
-    bootstrap-servers: 172.165.165.101:9092,172.165.165.102:9092,172.165.165.103:9092
-    # Kafka生产者配置
-    producer:
-      # 重试次数
-      retries: 2
-      # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
-      # 0：不等待返回的acks（可能会丢数据，因为发送消息没有了失败重试机制，但是这是最低延迟）
-      # 1：消息发送给kafka分区中的leader后就返回（如果follower没有同步完成leader就宕机了，就会丢数据）
-      # -1（默认）：等待所有follower同步完消息后再发送（绝对不会丢数据）
-      acks: 1
-      # 消息累计到batch-size的值后，才会发送消息，默认为16384
-      batch-size: 16384
-      properties:
-        # 提交延时：2ms,当消息累计一直没到batch-size的值。过了这个时间就发送消息。
-        linger.ms: 2
-      # 生产端内存缓冲区大小
-      buffer-memory: 33554432
-      #k afka序列化类配置
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    # kafka消费者配置
-    consumer:
-      # 配置默认消费者分组id
-      group-id: defaultConsumerGroup
-      # 启动自动提交
-      enable-auto-commit: true
-      # 自动提交间隔
-      auto-commit-interval: 100ms
-      # kafka意外宕机时，再次开启消息消费的策略，共有三种策略
-      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
-      # earliest:重置为分区中最小的offset;（即从最早的未消费过的开始消费）
-      # latest:重置为分区中最新的offset（消费分区中新产生的数据，即从现在最新产生的开始消费。存在丢失数据风险）;
-      # none:只要有一个分区不存在已提交的offset,就抛出异常;
-      auto-offset-reset: earliest
-      #kafka反序列化类配置
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      #消费者单次取最大消费数
-      max-poll-records: 20
-    # kafka监听器配置
-    listener:
-      # 监听topics不存在是否无法启动项目
-      missing-topics-fatal: false
-      # 消费方式：single，单一消费；batch,批次消费
-      type: single
-    topic:
-      group-id: kafkaGroup1
-      toipic-name:
-        - topic1
-        - topic2
-        - topic3
+#  kafka:
+#    # Kafka集群
+#    bootstrap-servers: 172.165.165.101:9092,172.165.165.102:9092,172.165.165.103:9092
+#    # Kafka生产者配置
+#    producer:
+#      # 重试次数
+#      retries: 2
+#      # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+#      # 0：不等待返回的acks（可能会丢数据，因为发送消息没有了失败重试机制，但是这是最低延迟）
+#      # 1：消息发送给kafka分区中的leader后就返回（如果follower没有同步完成leader就宕机了，就会丢数据）
+#      # -1（默认）：等待所有follower同步完消息后再发送（绝对不会丢数据）
+#      acks: 1
+#      # 消息累计到batch-size的值后，才会发送消息，默认为16384
+#      batch-size: 16384
+#      properties:
+#        # 提交延时：2ms,当消息累计一直没到batch-size的值。过了这个时间就发送消息。
+#        linger.ms: 2
+#      # 生产端内存缓冲区大小
+#      buffer-memory: 33554432
+#      #k afka序列化类配置
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    # kafka消费者配置
+#    consumer:
+#      # 配置默认消费者分组id
+#      group-id: defaultConsumerGroup
+#      # 启动自动提交
+#      enable-auto-commit: true
+#      # 自动提交间隔
+#      auto-commit-interval: 100ms
+#      # kafka意外宕机时，再次开启消息消费的策略，共有三种策略
+#      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+#      # earliest:重置为分区中最小的offset;（即从最早的未消费过的开始消费）
+#      # latest:重置为分区中最新的offset（消费分区中新产生的数据，即从现在最新产生的开始消费。存在丢失数据风险）;
+#      # none:只要有一个分区不存在已提交的offset,就抛出异常;
+#      auto-offset-reset: earliest
+#      #kafka反序列化类配置
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      #消费者单次取最大消费数
+#      max-poll-records: 20
+#    # kafka监听器配置
+#    listener:
+#      # 监听topics不存在是否无法启动项目
+#      missing-topics-fatal: false
+#      # 消费方式：single，单一消费；batch,批次消费
+#      type: single
+#    topic:
+#      group-id: kafkaGroup1
+#      toipic-name:
+#        - topic1
+#        - topic2
+#        - topic3
 #mybatis:
 #  mapper-locations:
 #    classpath*:com/jdw/springboot/mapper/sqlxml/*.xml
@@ -165,3 +165,17 @@ custom:
       templatePath: user/boss
   # 系统数据写接口匹配规则(正则表达式)，多个用逗号隔开。后续新增规则直接在此处添加即可
   writeRegx: add.*,save.*,remove.*,update.*,batch.*,clear.*,add.*,append.*,modify.*,edit.*,insert.*,delete.*,do.*,creat.*
+# Actuator组件
+management:
+  endpoint:
+    health:
+      # 健康端点显示信息
+      show-details: always
+  endpoints:
+    web:
+      # 健康组件base-path，默认值为：/actuator
+      base-path: /actuator
+      exposure:
+        # 设置健康组件包含端点
+        include: info,health,beans,mappings
+

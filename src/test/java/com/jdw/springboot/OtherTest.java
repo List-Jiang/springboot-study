@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.CaseFormat;
 import org.junit.Test;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -181,5 +182,22 @@ public class OtherTest {
         t--;
         System.out.println(t);
 
+    }
+
+    @Test
+    public void test(){
+        for (int errNum=0;errNum<100;errNum++){
+            while (errNum<20){
+                try {
+                    System.out.println(1/(errNum%2));
+                    return;
+                } catch (Exception exception) {
+                    errNum++;
+                    System.out.println("出错次数"+errNum);
+                }
+
+            }
+
+        }
     }
 }
