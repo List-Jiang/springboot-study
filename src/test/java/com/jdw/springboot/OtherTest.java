@@ -78,6 +78,9 @@ public class OtherTest {
         System.out.println("新旧对象是否相等："+newObject.equals(oldObject));
     }
 
+    /**
+     * 驼峰工具类测试
+     */
     @Test
     public void CaseFormat1() {
         System.out.println(CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, "test-data"));//testData
@@ -186,6 +189,9 @@ public class OtherTest {
 
     @Test
     public void test(){
+        final String proAreaids = "510703000000,510704000000,510705000000,510711000000,510713000000,510714000000,510715000000,510717000000,510722000000,510723000000,510725000000,510726000000,510727000000,510781000000";
+        System.out.println(proAreaids.contains("510704000000"));
+
         for (int errNum=0;errNum<100;errNum++){
             while (errNum<20){
                 try {
@@ -199,5 +205,10 @@ public class OtherTest {
             }
 
         }
+    }
+
+    @Test
+    public void test1(){
+        System.out.println("http://59.225.201.162:8087/group2/M00/73/13/rBKMWV_suVmATkUhAABVUhfkpuM416.pdf".replace("59.225.201.162","172.18.140.105"));
     }
 }
