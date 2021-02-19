@@ -1,4 +1,4 @@
-package com.jdw.springboot.task;
+package com.jdw.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

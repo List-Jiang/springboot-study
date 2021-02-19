@@ -211,4 +211,17 @@ public class OtherTest {
     public void test1(){
         System.out.println("http://59.225.201.162:8087/group2/M00/73/13/rBKMWV_suVmATkUhAABVUhfkpuM416.pdf".replace("59.225.201.162","172.18.140.105"));
     }
+
+    @Test
+    public void test2(){
+        int errNum = 0;
+        while (errNum < 3) {
+            try {
+                System.out.println("调用一次");
+                break;
+            } catch (Exception exception) {
+                errNum++;
+            }
+        }
+    }
 }

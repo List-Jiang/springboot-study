@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.lang.String;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.jdw.springboot.enums.SexEnum;
@@ -80,6 +81,18 @@ public class User implements Serializable {
      */
     @ApiModelProperty(value = "登录密码")
     private String password;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createDate;
+
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty(value = "修改时间")
+    private LocalDateTime updateDate;
 
     /**
      * 角色集合
