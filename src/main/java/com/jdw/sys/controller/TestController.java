@@ -3,6 +3,7 @@ package com.jdw.sys.controller;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.jdw.sys.entity.Demo;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +30,15 @@ public class TestController {
         Demo demo = JSONUtil.toBean(jsonObject, Demo.class);
         System.out.println(demo);
         return demo;
+    }
+
+    @RequestMapping("/test")
+    public String JsonToObject(){
+        return "http://gcjs.sczwfw.gov.cn/ele/?Form_Num=Z01";
+    }
+
+    @GetMapping("/test")
+    public String JsonToObject1(@RequestBody JSONObject jsonObject){
+        return "http://gcjs.sczwfw.gov.cn/ele/?Form_Num=Z01";
     }
 }

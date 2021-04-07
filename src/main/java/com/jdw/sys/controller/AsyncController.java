@@ -27,7 +27,7 @@ import java.util.concurrent.*;
 public class AsyncController {
 
     //注入执行 threadPool 线程池
-    @Resource(name = "threadPool")
+    @Resource(name = "taskExecutor")
     private ThreadPoolTaskExecutor treadPool;
 
     @RequestMapping("/test")

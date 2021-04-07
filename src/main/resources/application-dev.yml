@@ -68,6 +68,21 @@ spring:
   resource:
     static-locations: classpath:/static/,classpath:/public/
   # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
+  redis:
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+    database: 0
+    sentinel:
+      master: mymaster
+      nodes: 139.9.90.167:9379,116.63.91.50:9379,116.63.86.145:9379
+      password: 9cb1fdc2d0411f9830559dc525efcc4ecc4f455f6e877a620108bca801c58016
+    password: 9cb1fdc2d0411f9830559dc525efcc4ecc4f455f6e877a620108bca801c58016
+    username: admin-user
 #  kafka:
 #    # Kafka集群
 #    bootstrap-servers: 172.165.165.101:9092,172.165.165.102:9092,172.165.165.103:9092
@@ -178,4 +193,3 @@ management:
       exposure:
         # 设置健康组件包含端点
         include: info,health,beans,mappings
-
