@@ -1,4 +1,4 @@
-package com.jdw.springboot.redis;
+package com.jdw.springboot.lock;
 
 import org.junit.Test;
 import reactor.core.publisher.Flux;

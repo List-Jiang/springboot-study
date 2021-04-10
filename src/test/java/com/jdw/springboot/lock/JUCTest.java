@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 
 
-public class JUCTest1 {
+public class JUCTest {
 
     // 票据资源
     class Ticket {

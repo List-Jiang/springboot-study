@@ -12,7 +12,7 @@ import java.util.function.*;
  * @date 2020/12/16 19:24
  */
 @Slf4j
-public class FunctionTest {
+public class LambdaTest {
 
     /**
      * 入参、出参不同类型
@@ -28,27 +28,27 @@ public class FunctionTest {
     }
 
     @Test
-    public void BinaryOperator(){
-        BinaryOperator<Integer> binaryOperator = (t,y)->{
-            return t*y;
+    public void BinaryOperator() {
+        BinaryOperator<Integer> binaryOperator = (t, y) -> {
+            return t * y;
         };
-        log.info(binaryOperator.apply(4,6).toString());
+        log.info(binaryOperator.apply(4, 6).toString());
     }
 
     /**
      * 一元运算，入参出参同种类型
      */
     @Test
-    public void UnaryOperatorTest(){
-        UnaryOperator<String> unaryOperator = (t)->{
+    public void UnaryOperatorTest() {
+        UnaryOperator<String> unaryOperator = (t) -> {
             return "test";
         };
         log.info(unaryOperator.apply("test"));
     }
 
     @Test
-    public void SupplierTest(){
-        Supplier<String> getString = ()->{
+    public void SupplierTest() {
+        Supplier<String> getString = () -> {
             log.info("开始生产随机数字");
             return Double.toString(Math.ceil(Math.random()));
         };
@@ -65,12 +65,12 @@ public class FunctionTest {
     }
 
     @Test
-    public void biConsumerTest(){
-        BiConsumer consumer = (x,y)->{
-            System.out.println("参数一:"+x.toString());
-            System.out.println("参数er:"+y.toString());
+    public void biConsumerTest() {
+        BiConsumer consumer = (x, y) -> {
+            System.out.println("参数一:" + x.toString());
+            System.out.println("参数er:" + y.toString());
         };
-        consumer.accept(1,2);
+        consumer.accept(1, 2);
     }
 
     @Test
