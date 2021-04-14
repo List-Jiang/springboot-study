@@ -1,5 +1,6 @@
 package com.jdw.springboot;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.jdw.sys.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,21 +8,27 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = SpringbootApplication.class)
 @Slf4j
 class SpringbootApplicationTests {
+
     @Autowired
     IUserService userService;
+
     @Resource
-    private RestTemplate restTemplate;
+    private ThreadPoolTaskExecutor taskExecutor;
 
     @Test
     void contextLoads() {
@@ -37,9 +44,13 @@ class SpringbootApplicationTests {
     }
 
     @Test
-    public void password() {
-        for (int i = 0; i < 500; i++) {
-
-        }
+    public void CallableTest() throws ExecutionException, InterruptedException {
+        Callable<String> callable = () -> {
+            Thread.sleep(1000);
+            System.out.println(Instant.now().toEpochMilli() + "==>" + Thread.currentThread().getName());
+            return "任务执行完毕";
+        };
+        String s = taskExecutor.submit(callable).get();
+        System.out.println(s);
     }
 }
