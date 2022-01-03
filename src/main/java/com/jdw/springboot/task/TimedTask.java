@@ -2,9 +2,7 @@ package com.jdw.springboot.task;
 
 import com.jdw.springboot.async.AsyncTest;
 import com.jdw.springboot.config.CustomVariableConfig;
-import org.omg.CORBA.portable.CustomValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

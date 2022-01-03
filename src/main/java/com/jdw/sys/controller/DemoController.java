@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author jdw
@@ -26,15 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     @Autowired
     IDemoService service;
+
     @GetMapping("/delete")
-    public String delete(@RequestParam("id")String id){
+    public String delete(@RequestParam("id") String id) {
         Demo byId = service.getById(id);
         boolean b = service.removeById(id);
         Demo byI2 = service.getById(id);
         //e4c402cc1617adfe
         String randomKey = AES.generateRandomKey();
 
-// 随机密钥加密
+        // 随机密钥加密
         String driver = AES.encrypt("com.mysql.cj.jdbc.Driver", randomKey);
         String url = AES.encrypt("jdbc:mysql://localhost:3306/test1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8", randomKey);
         String user = AES.encrypt("test1", randomKey);
@@ -42,6 +43,7 @@ public class DemoController {
         String e4c402cc1617adfe = AES.decrypt("b6iFhx7TS4F7IYG3DeVpOQ==", "e4c402cc1617adfe");
 
 
-        return b?"1":"0";
+        return b ? "1" : "0";
     }
+
 }
