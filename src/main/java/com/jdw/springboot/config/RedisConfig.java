@@ -5,12 +5,16 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -45,7 +49,8 @@ public class RedisConfig extends CachingConfigurerSupport {
      * Lettuce
      */
     @Bean
-    public LettuceConnectionFactory lettuceConnectionFactory() {
+    @ConditionalOnProperty(prefix = "spring.redis", name = "sentinel.nodes")
+    public LettuceConnectionFactory sentinelLettuceConnectionFactory() {
         RedisSentinelConfiguration redisSentinelConfiguration = new RedisSentinelConfiguration()
                 .master(redisProperties.getSentinel().getMaster());
         redisProperties.getSentinel().getNodes().forEach(
@@ -57,18 +62,15 @@ public class RedisConfig extends CachingConfigurerSupport {
                 .readFrom(REPLICA_PREFERRED).build());
     }
 
-//    @Bean
-//    public LettuceConnectionFactory lettuceConnectionFactory() {
-//        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
-//                .master(redisProperties.getSentinel().getMaster());
-//        sentinelConfig.setUsername(redisProperties.getUsername());
-//        sentinelConfig.setPassword(redisProperties.getPassword());
-//        sentinelConfig.setMaster(redisProperties.getSentinel().getMaster());
-//        redisProperties.getSentinel().getNodes().forEach(
-//                node -> sentinelConfig.sentinel(node.split(":")[0], Integer.valueOf(node.split(":")[1])));
-//        return new LettuceConnectionFactory(sentinelConfig);
-//
-//    }
+    @Bean
+    @ConditionalOnProperty(prefix = "spring.redis", name = "host")
+    public LettuceConnectionFactory lettuceConnectionFactory() {
+        RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration();
+        redisConfiguration.setHostName(redisProperties.getHost());
+        redisConfiguration.setUsername(redisProperties.getUsername());
+        redisConfiguration.setPassword(redisProperties.getPassword());
+        return new LettuceConnectionFactory(redisConfiguration);
+    }
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
@@ -87,7 +89,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisTemplate.setHashKeySerializer(stringSerializer);// Hash key序列化
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);// Hash value序列化
         redisTemplate.afterPropertiesSet();
-        redisTemplate.opsForSet().add("test",123);
+        redisTemplate.opsForSet().add("test", 123);
         System.out.println(redisTemplate.opsForSet().pop("test"));
         return redisTemplate;
     }

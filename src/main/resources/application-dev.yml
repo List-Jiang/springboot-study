@@ -40,14 +40,14 @@ spring:
       datasource:
         test_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/database1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
-          username: user1
-          password: password1
+          url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+          username: root
+          password: root
         test_2:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/database1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
-          username: user1
-          password: password1
+          url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+          username: root
+          password: root
   servlet:
     multipart:
       enabled: true
@@ -77,12 +77,10 @@ spring:
         min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
       shutdown-timeout: 100ms
     database: 0
-    sentinel:
-      master: mymaster
-      nodes: 139.9.90.167:9379,116.63.91.50:9379,116.63.86.145:9379
-      password: 9cb1fdc2d0411f9830559dc525efcc4ecc4f455f6e877a620108bca801c58016
-    password: 9cb1fdc2d0411f9830559dc525efcc4ecc4f455f6e877a620108bca801c58016
-    username: admin-user
+    password:
+    username:
+    port: 6379
+    host: localhost
 #  kafka:
 #    # Kafka集群
 #    bootstrap-servers: 172.165.165.101:9092,172.165.165.102:9092,172.165.165.103:9092
