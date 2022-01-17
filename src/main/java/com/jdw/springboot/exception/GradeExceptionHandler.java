@@ -63,8 +63,7 @@ public class GradeExceptionHandler {
         //控制台输出异常
         String message = getMessage(exception);
         log.error(message);
-        return message;
-//        return "系统出错，请联系管理员";
+        return "系统出错，请联系管理员";
     }
 
     public static String getMessage(Throwable t) {
