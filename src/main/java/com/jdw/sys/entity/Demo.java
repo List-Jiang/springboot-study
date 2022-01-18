@@ -136,5 +136,8 @@ public class Demo implements Serializable {
     @ApiModelProperty(value = "有效状态，0无效，1，有效")
     private Integer status;
 
-
+    public static String test03(String s1, String s2, String s3) {
+        String s = s1 + s2 + s3;
+        return s;
+    }
 }
