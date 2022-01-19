@@ -18,6 +18,10 @@ import java.time.LocalDateTime;
  */
 @RestController
 public class TestController {
+    @RequestMapping("/hello")
+    Object hello(){
+        return "hello world";
+    }
     @RequestMapping("/json/out")
     public Object objectToJson(){
         Demo demo = new Demo();

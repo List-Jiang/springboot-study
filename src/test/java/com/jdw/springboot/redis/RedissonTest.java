@@ -1,14 +1,12 @@
 package com.jdw.springboot.redis;
 
-import com.jdw.springboot.SpringbootApplication;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import reactor.core.publisher.Flux;
 
 import java.time.LocalDateTime;
@@ -17,12 +15,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SpringbootApplication.class)
 @Slf4j
+@RequiredArgsConstructor
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RedissonTest {
-    @Autowired
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
 
     private final String lockName = "lockName1";
@@ -69,7 +66,7 @@ public class RedissonTest {
                 });
         System.out.println("size：" + size);
         System.out.println("count：" + count);
-        System.out.println("1000个任务耗时："+(LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli()-start)+"ms");
+        System.out.println("1000个任务耗时：" + (LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli() - start) + "ms");
     }
 
 }

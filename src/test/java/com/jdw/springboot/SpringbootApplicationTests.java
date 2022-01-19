@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.jdw.sys.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +19,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = SpringbootApplication.class)
 @AutoConfigureMockMvc
 class SpringbootApplicationTests {

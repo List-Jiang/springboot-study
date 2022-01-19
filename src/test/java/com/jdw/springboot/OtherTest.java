@@ -3,7 +3,7 @@ package com.jdw.springboot;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.CaseFormat;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import java.io.*;

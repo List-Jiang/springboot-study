@@ -1,5 +1,6 @@
 package com.jdw.springboot.format;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -10,13 +11,14 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 
+@Log4j2
 @RestController
 @RequestMapping("/formatter")
 public class FormatterController {
 
     @PostMapping("/post")
     BodyFormatter post(@Valid @RequestBody BodyFormatter bodyFormatterTest) {
-        System.out.println(bodyFormatterTest);
+        log.debug(bodyFormatterTest.toString());
         bodyFormatterTest.setDate(new Date());
         bodyFormatterTest.setLocalDate(LocalDate.now());
         bodyFormatterTest.setLocalDateTime(LocalDateTime.now());
@@ -26,7 +28,6 @@ public class FormatterController {
     }
     @GetMapping("/get")
     BodyFormatter get(@Valid @ModelAttribute BodyFormatter bodyFormatterTest) {
-        System.out.println(bodyFormatterTest);
         bodyFormatterTest.setDate(new Date());
         bodyFormatterTest.setLocalDate(LocalDate.now());
         bodyFormatterTest.setLocalDateTime(LocalDateTime.now());

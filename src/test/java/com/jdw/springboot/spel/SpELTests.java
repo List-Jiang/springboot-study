@@ -1,7 +1,7 @@
 package com.jdw.springboot.spel;
 
 import com.jdw.springboot.spel.entity.Inventor;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;

@@ -2,8 +2,7 @@ package com.jdw.springboot.redis;
 
 import com.jdw.springboot.SpringbootApplication;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @remark
  * @date 2021/3/7 18:16
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = SpringbootApplication.class)
 @Slf4j
 public class RedisTest {

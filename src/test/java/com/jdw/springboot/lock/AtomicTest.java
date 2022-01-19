@@ -1,6 +1,6 @@
 package com.jdw.springboot.lock;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 
 import java.util.concurrent.atomic.AtomicInteger;

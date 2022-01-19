@@ -23,7 +23,7 @@ public class BodyFormatter {
     private Date date;
     private Calendar calendar;
 
-    @NumberFormat(pattern = "￥ #.###")
+    @NumberFormat(pattern = "#.###")
     private BigDecimal bigDecimal1;
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private BigDecimal bigDecimal2;

@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jdw.springboot.SpringbootApplication;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,7 +26,6 @@ import java.util.function.Supplier;
  * @date 2021/4/7 10:58
  */
 @Slf4j
-//@RunWith(SpringJUnit4ClassRunner.class)
 //@SpringBootTest(classes = SpringbootApplication.class)
 public class ThreadTest {
 

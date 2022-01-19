@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.jdw.sys.entity.Demo;
 import com.jdw.sys.mapper.DemoMapper;
 import com.jdw.sys.service.IDemoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-05-26
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/sys/demo")
 public class DemoController {
-    @Autowired
-    IDemoService service;
+    private final IDemoService service;
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") String id) {
