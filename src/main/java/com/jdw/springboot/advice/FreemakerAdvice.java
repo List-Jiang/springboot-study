@@ -15,7 +15,7 @@ public class FreemakerAdvice {
     @Value("${server.servlet.context-path}")
     private String contentPath;
 
-    @ModelAttribute(name="contentPath")
+    @ModelAttribute(name = "contentPath")
     public String contentPath() {
         return contentPath;
     }

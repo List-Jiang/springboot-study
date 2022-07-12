@@ -88,6 +88,7 @@ public class SimpleTest {
             lock.unlock();
         }
     };
+
     @Test
     public void Test3() {
         Flux.range(1, 100).toStream().collect(Collectors.toList())

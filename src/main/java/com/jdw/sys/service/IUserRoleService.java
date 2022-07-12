@@ -1,11 +1,11 @@
 package com.jdw.sys.service;
 
-import com.jdw.sys.entity.UserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jdw.sys.entity.UserRole;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author jdw

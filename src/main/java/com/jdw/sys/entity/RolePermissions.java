@@ -1,19 +1,18 @@
 package com.jdw.sys.entity;
 
-import java.io.Serializable;
-import java.lang.String;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author jdw
@@ -24,7 +23,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value="RolePermissions对象", description="")
+@Schema(name = "RolePermissions对象", description = "")
 public class RolePermissions implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,15 +32,15 @@ public class RolePermissions implements Serializable {
     private Long id;
 
     /**
-    * 角色id
-    */
-    @ApiModelProperty(value = "角色id")
+     * 角色id
+     */
+    @Schema(name = "角色id")
     private Long roleId;
 
     /**
-    * 权限id
-    */
-    @ApiModelProperty(value = "权限id")
+     * 权限id
+     */
+    @Schema(name = "权限id")
     private Long permissionsId;
 
 

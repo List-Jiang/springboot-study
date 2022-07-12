@@ -183,7 +183,7 @@ public class EncrypRSA {
     public byte[] decrypt(String key, String ciphertext, String keyType) throws Exception {
         if (key != null) {
             byte[] decode = Base64.getDecoder().decode(ciphertext);
-            switch (keyType){
+            switch (keyType) {
                 case PUBLIC:
                     return decrypt(getPublicKey(key), decode);
                 case PRIVATE:
@@ -302,14 +302,14 @@ public class EncrypRSA {
         byte[] encrypt = rsa.encrypt((RSAPublicKey) keyPair.getPublic(), "".getBytes());
         String privateStr = getString((RSAPrivateKey) keyPair.getPrivate());
         String publicStr = getString((RSAPublicKey) keyPair.getPublic());
-        System.out.println("私钥是："+privateStr);
-        System.out.println("公钥是："+publicStr);
+        System.out.println("私钥是：" + privateStr);
+        System.out.println("公钥是：" + publicStr);
         byte[] ciphertextPrivate = rsa.encrypt(privateStr, msg, EncrypRSA.PRIVATE);
         byte[] ciphertextPublic = rsa.encrypt(publicStr, msg, EncrypRSA.PUBLIC);
-        System.out.println("原文是———————————————："+msg);
+        System.out.println("原文是———————————————：" + msg);
         String cleartextPrivate = rsa.decryptToString(privateStr, new String(Base64.getEncoder().encode(ciphertextPublic)), EncrypRSA.PRIVATE);
-        String cleartextPublic = rsa.decryptToString(publicStr,  new String(Base64.getEncoder().encode(ciphertextPrivate)),EncrypRSA.PUBLIC);
-        System.out.println("私钥加密公钥解密后明文为："+cleartextPrivate);
-        System.out.println("公钥加密私钥解密后明文为："+cleartextPublic);
+        String cleartextPublic = rsa.decryptToString(publicStr, new String(Base64.getEncoder().encode(ciphertextPrivate)), EncrypRSA.PUBLIC);
+        System.out.println("私钥加密公钥解密后明文为：" + cleartextPrivate);
+        System.out.println("公钥加密私钥解密后明文为：" + cleartextPublic);
     }
 }

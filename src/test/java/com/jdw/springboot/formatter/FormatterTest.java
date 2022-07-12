@@ -1,8 +1,6 @@
 package com.jdw.springboot.formatter;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ class FormatterTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(result -> {
                     JSONObject jsonObject1 = JSONObject.parseObject(result.getRequest().getContentAsString());
-                    Assertions.assertTrue(jsonObject1.getString("money").startsWith("￥"),"money 未序列化为以 ￥ 开头的字符串");
+                    Assertions.assertTrue(jsonObject1.getString("money").startsWith("￥"), "money 未序列化为以 ￥ 开头的字符串");
                 });
     }
 }

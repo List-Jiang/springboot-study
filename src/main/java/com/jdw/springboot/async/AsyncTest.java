@@ -15,17 +15,19 @@ import java.util.Date;
 public class AsyncTest {
     /**
      * 标明这个方法是异步操作
+     *
      * @param string
      */
     @Async
-    public void test1(String string){
-        System.out.println("这是 test1 异步方法"+string+(new Date()).getTime());
+    public void test1(String string) {
+        System.out.println("这是 test1 异步方法" + string + (new Date()).getTime());
     }
+
     @Async
-    public void test2(){
-        System.out.println("这是 test2 异步方法"+(new Date()).getTime());
+    public void test2() {
+        System.out.println("这是 test2 异步方法" + (new Date()).getTime());
         for (int i = 0; i < 10; i++) {
-            System.out.println("这是test2,现场id是："+Thread.currentThread().getId());
+            System.out.println("这是test2,现场id是：" + Thread.currentThread().getId());
         }
     }
 

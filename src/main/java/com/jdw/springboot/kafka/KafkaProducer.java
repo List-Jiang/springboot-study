@@ -1,14 +1,13 @@
 package com.jdw.springboot.kafka;
 
-import cn.hutool.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.fastjson2.JSONObject;
+import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,14 +21,12 @@ import java.util.Set;
  * @remark
  * @date 2020/7/2615:06
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/kafka")
-@ResponseBody
 public class KafkaProducer {
-    @Resource
-    private KafkaTemplate<String, Object> kafkaTemplate;
-    @Resource
-    private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     @RequestMapping(value = "/getAllUrl", method = RequestMethod.GET)
     public Set<String> getAllUrl() {
@@ -43,7 +40,7 @@ public class KafkaProducer {
     @PostMapping("/send")
     public String sendMessage(@RequestBody JSONObject jsonObject) {
         kafkaTemplate.send("topic1", jsonObject.toString());
-        kafkaTemplate.send("testTopic", new Integer(1), "key", jsonObject.toString());
+        kafkaTemplate.send("testTopic", Integer.valueOf(1), "key", jsonObject.toString());
         return "OK";
     }
 

@@ -32,11 +32,7 @@ public class JUCTest {
 
         // 减一
         public boolean sell() {
-            if (size-- > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return size-- > 0;
         }
 
         // 获取剩余数量
@@ -49,7 +45,7 @@ public class JUCTest {
     class People {
         private int ticketSize = 0;
 
-        private String name;
+        private final String name;
 
         public People(String name) {
             this.name = name;

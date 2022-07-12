@@ -50,7 +50,7 @@ public class RestTemplateConfig {
             converterList.remove(converterTarget);
         }
         HttpMessageConverter<?> converter = new StringHttpMessageConverter(StandardCharsets.UTF_8);
-        converterList.add(1,converter);
+        converterList.add(1, converter);
         return restTemplate;
     }
 

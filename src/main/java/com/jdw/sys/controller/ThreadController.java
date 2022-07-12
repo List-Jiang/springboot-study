@@ -26,13 +26,13 @@ public class ThreadController {
         JSONObject result = new JSONObject();
         Callable callable1 = () -> {
             Thread.sleep(100);
-            System.out.println(Thread.currentThread().getName()+"任务1耗时100毫秒");
+            System.out.println(Thread.currentThread().getName() + "任务1耗时100毫秒");
             return JSONObject.parseObject("{\"测试key\":\"任务1耗时100毫秒\"}");
         };
 
         Callable callable2 = () -> {
             Thread.sleep(200);
-            System.out.println(Thread.currentThread().getName()+"任务2耗时200毫秒");
+            System.out.println(Thread.currentThread().getName() + "任务2耗时200毫秒");
             return JSONObject.parseObject("{\"测试key\":\"任务2耗时200毫秒\"}");
         };
 

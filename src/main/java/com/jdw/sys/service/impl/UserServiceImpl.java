@@ -1,21 +1,14 @@
 package com.jdw.sys.service.impl;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jdw.sys.entity.*;
 import com.jdw.sys.mapper.*;
 import com.jdw.sys.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +16,7 @@ import java.util.Set;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jdw
@@ -53,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         List<User> users = userMapper.selectList(wrapper);
         List<String> account = new ArrayList<>();
-        users.forEach(st->{
+        users.forEach(st -> {
             account.add(st.getAccount());
         });
         return account;
@@ -61,10 +54,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     /**
      * 通过用户id获取用户信息
+     *
      * @param id
      * @return
      */
-    public User getUserById(@Param("id") Long id){
+    public User getUserById(@Param("id") Long id) {
         //获取一个用户
         User user = userMapper.selectById(id);
         //获取用户角色关系 list
@@ -96,7 +90,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return user;
     }
 
-    public List<User> getUserByName(@Param("name") String name){
+    public List<User> getUserByName(@Param("name") String name) {
         return userMapper.getUserByName(name);
     }
 

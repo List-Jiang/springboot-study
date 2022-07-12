@@ -12,11 +12,13 @@ import lombok.Getter;
  */
 @Getter
 public enum SexEnum {
-    MAN(1,"男"),WOMAN(2,"女");
-    SexEnum(int code,String sex){
+    MAN(1, "男"), WOMAN(2, "女");
+
+    SexEnum(int code, String sex) {
         this.code = code;
         this.sex = sex;
     }
+
     @EnumValue
     private final int code;
     @JsonValue

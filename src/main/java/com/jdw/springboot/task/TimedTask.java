@@ -30,15 +30,15 @@ public class TimedTask {
 //    标明这个方法是个定时任务,上一个定时任务完成后2秒新建定时任务开始执行。
 //    @Scheduled(fixedDelay = 2000L)
 
-//    标明这个方法是个定时任务,每四秒钟判断上一个是否已执行,上一个执行完毕则新建定时任务开始执行。未执行完毕则等待4秒后继续判断
+    //    标明这个方法是个定时任务,每四秒钟判断上一个是否已执行,上一个执行完毕则新建定时任务开始执行。未执行完毕则等待4秒后继续判断
     @Scheduled(cron = "0/4 * * * * ?")
-    private void task1() throws Exception{
+    private void task1() throws Exception {
         t++;
-        System.out.println("task"+t+"：定时任务开始"+(new Date()).getTime()+ variableConfig.getCustomValue1());
+        System.out.println("task" + t + "：定时任务开始" + (new Date()).getTime() + variableConfig.getCustomValue1());
         Thread.sleep(2000);
         System.out.println("调用异步前");
         for (int i = 0; i < 10; i++) {
-            asyncTest.test1(""+i);
+            asyncTest.test1("" + i);
         }
         System.out.println("调用异步后");
     }

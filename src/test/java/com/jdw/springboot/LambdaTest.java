@@ -2,10 +2,6 @@ package com.jdw.springboot;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.function.*;
 
 /**
@@ -25,7 +21,7 @@ public class LambdaTest {
             System.out.println("判断参数为：" + t);
             return t.equals("Hz");
         };
-        System.out.println(Boolean.toString(isHz.test("Hz")));
+        System.out.println(isHz.test("Hz"));
     }
 
     /**
@@ -59,7 +55,7 @@ public class LambdaTest {
     public void FunctionTestCode() {
         Function<Integer, Boolean> function = (t) -> {
             System.out.println("入参:" + t);
-            return t.equals("1") ? true : false;
+            return t.equals("1");
         };
         System.out.println("入参:" + function.apply(1));
     }

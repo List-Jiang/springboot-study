@@ -1,14 +1,14 @@
 package com.jdw.sys.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jdw.sys.entity.Role;
 import com.jdw.sys.mapper.RoleMapper;
 import com.jdw.sys.service.IRoleService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jdw

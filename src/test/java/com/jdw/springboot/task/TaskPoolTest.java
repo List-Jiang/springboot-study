@@ -1,22 +1,15 @@
 package com.jdw.springboot.task;
 
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import static cn.hutool.http.Method.GET;
 
 /**
  * @author ListJiang
@@ -34,7 +27,7 @@ public class TaskPoolTest {
      * 除了直接执行的任务与进入等待队列的任务，其余的任务全部抛弃，并抛出 RejectedExecutionException
      */
     @Test
-    public void AbortPolicyDemo(){
+    public void AbortPolicyDemo() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
         ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
         // 设置线程池的拒绝策略为"中止",会抛出拒绝执行异常
@@ -45,7 +38,7 @@ public class TaskPoolTest {
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("线程"+ finalI);
+                    System.out.println("线程" + finalI);
                 }
             });
         }
@@ -59,7 +52,7 @@ public class TaskPoolTest {
      * 除了直接执行的任务与进入等待队列的任务，其余的任务全部抛弃。
      */
     @Test
-    public void DiscardPolicyDemo(){
+    public void DiscardPolicyDemo() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
         ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
         // 设置线程池的拒绝策略为"丢弃"。
@@ -70,7 +63,7 @@ public class TaskPoolTest {
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("线程"+ finalI);
+                    System.out.println("线程" + finalI);
                 }
             });
         }
@@ -97,8 +90,8 @@ public class TaskPoolTest {
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.print("第" + (finalI+1) + "个任务：");
-                    System.out.println("线程"+ Thread.currentThread().getName());
+                    System.out.print("第" + (finalI + 1) + "个任务：");
+                    System.out.println("线程" + Thread.currentThread().getName());
                 }
             });
         }
@@ -123,8 +116,8 @@ public class TaskPoolTest {
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.print("第" + (finalI+1) + "个任务：");
-                    System.out.println("线程"+ Thread.currentThread().getName());
+                    System.out.print("第" + (finalI + 1) + "个任务：");
+                    System.out.println("线程" + Thread.currentThread().getName());
                 }
             });
         }
@@ -142,7 +135,7 @@ public class TaskPoolTest {
         String url = "http://localhost:8082/api1/forward/gcjs_lhch_wt/1c4e88acd48d0c03783a1441075cb160?i=1";
         String url2 = "http://localhost:8082/getChukuNumber?type=ewfrqw";
         String url3 = "http://localhost:8082/getChukuNumber2?type=ewrew";
-        JSONObject jsonObject = JSONUtil.parseObj("{\n" +
+        JSONObject jsonObject = JSON.parseObject("{\n" +
                 "    \"key\":\"value\",\n" +
 //                "    \"i\":\"1\"\n" +
                 "}");
@@ -152,10 +145,10 @@ public class TaskPoolTest {
             pool.execute(new Runnable() {
                 @Override
                 public void run() {
-                    jsonObject.put("i",finalI+1);
+                    jsonObject.put("i", finalI + 1);
                     String body = HttpUtil.createPost(url2).execute().body();
 //                    String body = "HttpUtil.createPost(url).body(jsonObject.toString()).execute().body()";
-                    System.out.println("第" + (finalI+1) + "个任务："+body);
+                    System.out.println("第" + (finalI + 1) + "个任务：" + body);
                 }
             });
         }
@@ -163,24 +156,24 @@ public class TaskPoolTest {
     }
 
     @Test
-    public void test(){
+    public void test() {
         String str = "[/apifile/mongo/view/{_id} || /apifile/mongo/view/{_id}]";
-        if (str.indexOf('[')==0&&str.indexOf(']')==str.length()-1){
+        if (str.indexOf('[') == 0 && str.indexOf(']') == str.length() - 1) {
             String substring = str.substring(1, str.length() - 1);
-            String string = substring.replaceAll("\\|\\|", ",").replaceAll(" ","");
+            String string = substring.replaceAll("\\|\\|", ",").replaceAll(" ", "");
             System.out.println(string);
         }
         String url2 = "http://localhost:8082/readThreadPool?type=ewfrqw";
-        JSONObject jsonObject = JSONUtil.parseObj("{\n" +
+        JSONObject jsonObject = JSON.parseObject("{\n" +
                 "    \"key\":\"value\",\n" +
 //                "    \"i\":\"1\"\n" +
                 "}");
-        Map<String,String> t = new HashMap<>();
-        t.put("dfsdfs","fsdfs");
-        t.put("dfsdfs","放大方式");
-        System.out.println(t.toString());
+        Map<String, String> t = new HashMap<>();
+        t.put("dfsdfs", "fsdfs");
+        t.put("dfsdfs", "放大方式");
+        System.out.println(t);
         for (int i = 0; i < 10; i++) {
-            String body = HttpUtil.createPost(url2+i).body(jsonObject.toString()).execute().body();
+            String body = HttpUtil.createPost(url2 + i).body(jsonObject.toString()).execute().body();
             System.out.println(body);
         }
 

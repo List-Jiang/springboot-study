@@ -10,8 +10,8 @@ public class Society {
     public static String Advisors = "advisors";
     public static String President = "president";
 
-    private List<Inventor> members = new ArrayList<>();
-    private Map officers = new HashMap();
+    private final List<Inventor> members = new ArrayList<>();
+    private final Map officers = new HashMap();
 
     public List getMembers() {
         return members;

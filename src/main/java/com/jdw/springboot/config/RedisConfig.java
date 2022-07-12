@@ -3,16 +3,13 @@ package com.jdw.springboot.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConfiguration;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
@@ -21,9 +18,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.util.StringUtils;
 
-import static io.lettuce.core.ReadFrom.*;
+import static io.lettuce.core.ReadFrom.REPLICA_PREFERRED;
 
 /**
  * 开启缓存支持
@@ -31,12 +27,11 @@ import static io.lettuce.core.ReadFrom.*;
  * @Return:
  */
 @Slf4j
-@EnableCaching
 @Configuration
+@RequiredArgsConstructor
 public class RedisConfig extends CachingConfigurerSupport {
 
-    @Autowired
-    RedisProperties redisProperties;
+    private final RedisProperties redisProperties;
 
 
     /**
@@ -55,9 +50,9 @@ public class RedisConfig extends CachingConfigurerSupport {
                 .master(redisProperties.getSentinel().getMaster());
         redisProperties.getSentinel().getNodes().forEach(
                 node -> redisSentinelConfiguration.sentinel(node.split(":")[0], Integer.valueOf(node.split(":")[1])));
-            redisSentinelConfiguration.setPassword(redisProperties.getPassword());
+        redisSentinelConfiguration.setPassword(redisProperties.getPassword());
 //            redisSentinelConfiguration.setUsername(redisProperties.getUsername());
-            redisSentinelConfiguration.setSentinelPassword(redisProperties.getSentinel().getPassword());
+        redisSentinelConfiguration.setSentinelPassword(redisProperties.getSentinel().getPassword());
         return new LettuceConnectionFactory(redisSentinelConfiguration, LettuceClientConfiguration.builder()
                 .readFrom(REPLICA_PREFERRED).build());
     }

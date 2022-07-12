@@ -20,7 +20,7 @@ import java.util.Map;
 public class SimpleViewController {
     //value注解案例
     @Value("#{${custom.map}}")
-    private Map<String,String> map;
+    private Map<String, String> map;
     @Value("#{'${custom.list1}'.split(',')}")
     private List<String> list;
     //引用使用 ConfigurationProperties注解 的参数配置类
@@ -28,7 +28,7 @@ public class SimpleViewController {
     private CustomVariableConfig customVariableConfig;
 
     @GetMapping("/user/{view}")
-    public String Simple(@PathVariable(name = "view")String view){
+    public String Simple(@PathVariable(name = "view") String view) {
         String templatePaath = "500.ftl";
         for (int i = 0; i < customVariableConfig.getSimpleViewControllers().size(); i++) {
             String urlParame = customVariableConfig.getSimpleViewControllers().get(i).get("urlParame");

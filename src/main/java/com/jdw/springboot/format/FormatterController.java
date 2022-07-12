@@ -3,7 +3,6 @@ package com.jdw.springboot.format;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +25,7 @@ public class FormatterController {
         bodyFormatterTest.setCalendar(Calendar.getInstance());
         return bodyFormatterTest;
     }
+
     @GetMapping("/get")
     BodyFormatter get(@Valid @ModelAttribute BodyFormatter bodyFormatterTest) {
         bodyFormatterTest.setDate(new Date());

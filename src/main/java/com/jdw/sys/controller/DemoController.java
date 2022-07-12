@@ -3,13 +3,10 @@ package com.jdw.sys.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.jdw.sys.entity.Demo;
-import com.jdw.sys.mapper.DemoMapper;
 import com.jdw.sys.service.IDemoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 

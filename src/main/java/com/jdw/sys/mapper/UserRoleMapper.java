@@ -1,14 +1,14 @@
 package com.jdw.sys.mapper;
 
-import com.jdw.sys.entity.UserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jdw.sys.entity.UserRole;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author jdw

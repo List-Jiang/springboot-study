@@ -16,7 +16,7 @@ public class EvaluationContextTest {
     @Test
     public void simpleEvaluationContextTest() {
         class Simple {
-            public List<Boolean> booleanList = new ArrayList<>();
+            public final List<Boolean> booleanList = new ArrayList<>();
         }
 
         Simple simple = new Simple();
@@ -59,7 +59,7 @@ public class EvaluationContextTest {
     public void spelCompilerConfigurationTest() {
 
         class MyMessage {
-            public String payload="Hello world";
+            public final String payload = "Hello world";
         }
 
         SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,

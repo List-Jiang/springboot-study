@@ -18,6 +18,7 @@ public class RegionValidator implements ConstraintValidator<Region, CharSequence
             patterns[i] = Pattern.compile(region.regexps()[i]);
         }
     }
+
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
         if (value == null) {

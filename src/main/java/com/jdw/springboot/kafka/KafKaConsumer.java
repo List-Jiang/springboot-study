@@ -1,12 +1,8 @@
 package com.jdw.springboot.kafka;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.PartitionOffset;
-import org.springframework.kafka.annotation.TopicPartition;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -21,19 +17,19 @@ import java.util.Optional;
 public class KafKaConsumer {
 
     @KafkaListener(topics = "topic1")
-    public void onMessage1(ConsumerRecord<?, ?> record){
+    public void onMessage1(ConsumerRecord<?, ?> record) {
         // 消费的哪个topic、partition的消息,打印出消息内容
-        log.info("简单消费："+record.topic()+"-"+record.partition()+"-"+record.value());
+        log.info("简单消费：" + record.topic() + "-" + record.partition() + "-" + record.value());
 //        System.out.println("简单消费："+record.topic()+"-"+record.partition()+"-"+record.value());
     }
 
 
     @KafkaListener(topics = "testTopic")
-    public void consumer(ConsumerRecord consumerRecord){
+    public void consumer(ConsumerRecord consumerRecord) {
         Optional<Object> kafkaMassage = Optional.ofNullable(consumerRecord.value());
-        if(kafkaMassage.isPresent()){
+        if (kafkaMassage.isPresent()) {
             Object o = kafkaMassage.get();
-            log.info("接收到的消息是："+o);
+            log.info("接收到的消息是：" + o);
         }
 
     }

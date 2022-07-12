@@ -1,22 +1,19 @@
 package com.jdw.springboot.task;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jdw.springboot.SpringbootApplication;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.ReflectionUtils;
 
 import javax.annotation.Resource;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.concurrent.*;
-import java.util.function.Function;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.function.Supplier;
 
 /**
@@ -116,7 +113,6 @@ public class ThreadTest {
      * 串行
      * {}
      * {}
-     *
      */
     @Test
     public void completableFuture_thenComposeTest() {

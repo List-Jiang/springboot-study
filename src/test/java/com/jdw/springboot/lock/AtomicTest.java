@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
  */
 public class AtomicTest {
 
-    private AtomicInteger A = new AtomicInteger(100);
-    private AtomicInteger B = new AtomicInteger(0);
+    private final AtomicInteger A = new AtomicInteger(100);
+    private final AtomicInteger B = new AtomicInteger(0);
 
     private void sleep_100() {
         // 自定义当前线程休眠100毫秒，模拟业务数据处理带来的时间消耗

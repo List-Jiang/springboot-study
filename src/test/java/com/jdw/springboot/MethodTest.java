@@ -6,10 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-class Cat{
-    private String name ="Tom";
-    public static void bark(Supplier<Cat> supplier){
-        System.out.println(supplier.get()+"发现了老鼠！");
+class Cat {
+    private final String name = "Tom";
+
+    public static void bark(Supplier<Cat> supplier) {
+        System.out.println(supplier.get() + "发现了老鼠！");
     }
 
     @Override
@@ -29,13 +30,13 @@ class Cat{
 public class MethodTest {
 
     @Test
-    public void test1(){
+    public void test1() {
         Consumer<String> consumer = System.out::println;
         consumer.accept("基础方法引用打印测试");
     }
 
     @Test
-    public void CatTest(){
+    public void CatTest() {
         // 生产者、消费者测试
         Supplier<Cat> catSupplier = Cat::new;
         Consumer<Supplier> consumer = Cat::bark;
