@@ -16,10 +16,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * kafka消息生产者
  * @author ListJiang
- * @class kafka消息生产者
- * @remark
- * @date 2020/7/2615:06
+ * @since 2020/7/2615:06
  */
 @RequiredArgsConstructor
 @RestController
@@ -33,14 +32,17 @@ public class KafkaProducer {
         // url与方法的对应关系
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
         Set<String> urls = new HashSet<>();
-        handlerMethods.keySet().forEach(handlerMethod -> urls.addAll(handlerMethod.getPatternsCondition().getPatterns()));
+        handlerMethods.keySet().forEach(handlerMethod -> {
+            assert handlerMethod.getPatternsCondition() != null;
+            urls.addAll(handlerMethod.getPatternsCondition().getPatterns());
+        });
         return urls;
     }
 
     @PostMapping("/send")
     public String sendMessage(@RequestBody JSONObject jsonObject) {
         kafkaTemplate.send("topic1", jsonObject.toString());
-        kafkaTemplate.send("testTopic", Integer.valueOf(1), "key", jsonObject.toString());
+        kafkaTemplate.send("testTopic", 1, "key", jsonObject.toString());
         return "OK";
     }
 

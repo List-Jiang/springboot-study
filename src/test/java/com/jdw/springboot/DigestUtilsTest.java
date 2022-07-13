@@ -8,8 +8,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author ListJiang
  * @class 算法测试
- * @remark
- * @date 2021/1/1 22:29
+ * @since 2021/1/1 22:29
  */
 public class DigestUtilsTest {
     @Test

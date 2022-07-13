@@ -8,15 +8,13 @@ import java.util.Date;
 /**
  * @author ListJiang
  * @class 异步测试类
- * @remark
- * @date 2020/6/910:21
+ * @since 2020/6/910:21
  */
 @Component
 public class AsyncTest {
     /**
      * 标明这个方法是异步操作
-     *
-     * @param string
+         * @param string
      */
     @Async
     public void test1(String string) {

@@ -11,8 +11,7 @@ import java.util.Arrays;
 /**
  * @author ListJiang
  * @class
- * @remark
- * @date 2020/6/810:22
+ * @since 2020/6/810:22
  */
 @Component
 //@Aspect
@@ -29,8 +28,7 @@ public class WebAspect {
 
     /**
      * 前置通知，目标方法调用前被调用
-     *
-     * @param joinPoint
+         * @param joinPoint
      */
     @Before("executePackage()")
     public void beforeAdvice(JoinPoint joinPoint) {
@@ -55,8 +53,7 @@ public class WebAspect {
      * 如果参数中的第一个参数为JoinPoint，则第二个参数为返回值的信息
      * 如果参数中的第一个参数不为JoinPoint，则第一个参数为returning中对应的参数
      * returning 只有目标方法返回值与通知方法相应参数类型时才能执行后置返回通知，否则不执行
-     *
-     * @param joinPoint
+         * @param joinPoint
      * @param keys
      */
     @AfterReturning(value = "execution(* com.jdw.sys.controller..*.*(..))", returning = "keys")
@@ -70,8 +67,7 @@ public class WebAspect {
      * 后置异常通知
      * 定义一个名字，该名字用于匹配通知实现方法的一个参数名，当目标方法抛出异常返回后，将把目标方法抛出的异常传给通知方法；
      * throwing 只有目标方法抛出的异常与通知方法相应参数异常类型时才能执行后置异常通知，否则不执行，
-     *
-     * @param joinPoint
+         * @param joinPoint
      * @param exception
      */
     @AfterThrowing(value = "executePackage()", throwing = "exception")

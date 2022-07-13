@@ -13,8 +13,7 @@ import java.util.concurrent.FutureTask;
 /**
  * @author ListJiang
  * @class 多线程执行任务测试
- * @remark
- * @date 2021/4/7 10:07
+ * @since 2021/4/7 10:07
  */
 @RestController
 @RequestMapping("/thread")

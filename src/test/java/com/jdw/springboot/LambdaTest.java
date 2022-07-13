@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.util.function.*;
 
 /**
+ * jdk8函数式接口测试
  * @author ListJiang
- * @class jdk8函数式接口测试
- * @remark
- * @date 2020/12/16 19:24
+ * @since 2020/12/16 19:24
  */
 public class LambdaTest {
 

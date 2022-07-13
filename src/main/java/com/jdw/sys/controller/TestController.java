@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 /**
  * @author ListJiang
  * @class 请求相关测试类
- * @remark
- * @date 2020/8/2510:15
+ * @since 2020/8/2510:15
  */
 @RestController
 public class TestController {

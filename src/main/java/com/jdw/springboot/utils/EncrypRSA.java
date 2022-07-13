@@ -16,8 +16,7 @@ import java.util.Base64;
 /**
  * @author ListJiang
  * @class RSA加密工具类
- * @remark
- * @date 2020/9/14 19:56
+ * @since 2020/9/14 19:56
  */
 public class EncrypRSA {
 
@@ -27,8 +26,7 @@ public class EncrypRSA {
 
     /**
      * 根据公钥加密
-     *
-     * @param publicKey      公钥
+         * @param publicKey      公钥
      * @param cleartextBytes 明文
      */
     public byte[] encrypt(RSAPublicKey publicKey, byte[] cleartextBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -45,8 +43,7 @@ public class EncrypRSA {
 
     /**
      * 根据公钥加密
-     *
-     * @param publicKey 公钥
+         * @param publicKey 公钥
      * @param cleartext 明文
      * @return
      * @throws Exception
@@ -60,8 +57,7 @@ public class EncrypRSA {
 
     /**
      * 指定加密类型进行加密
-     *
-     * @param key       密钥
+         * @param key       密钥
      * @param cleartext 明文
      * @param keyType   加密密钥类型，默认公钥加密
      * @return
@@ -82,8 +78,7 @@ public class EncrypRSA {
 
     /**
      * 根据私钥加密
-     *
-     * @param privateKey     私钥
+         * @param privateKey     私钥
      * @param cleartextBytes 明文
      */
     public byte[] encrypt(RSAPrivateKey privateKey, byte[] cleartextBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -100,8 +95,7 @@ public class EncrypRSA {
 
     /**
      * 根据私钥加密
-     *
-     * @param privateKey 私钥
+         * @param privateKey 私钥
      * @param cleartext  明文
      */
     public byte[] encrypt(RSAPrivateKey privateKey, String cleartext) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -113,8 +107,7 @@ public class EncrypRSA {
 
     /**
      * 根据公钥解密
-     *
-     * @param publicKey       公钥
+         * @param publicKey       公钥
      * @param ciphertextBytes 密文
      */
     public byte[] decrypt(RSAPublicKey publicKey, byte[] ciphertextBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -131,8 +124,7 @@ public class EncrypRSA {
 
     /**
      * 根据公钥解密
-     *
-     * @param publicKey  公钥
+         * @param publicKey  公钥
      * @param ciphertext 密文
      */
     public byte[] decrypt(RSAPublicKey publicKey, String ciphertext) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -144,8 +136,7 @@ public class EncrypRSA {
 
     /**
      * 根据私钥解密
-     *
-     * @param privateKey 私钥
+         * @param privateKey 私钥
      * @param srcBytes   密文
      */
     public byte[] decrypt(RSAPrivateKey privateKey, byte[] srcBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -162,8 +153,7 @@ public class EncrypRSA {
 
     /**
      * 根据私钥解密
-     *
-     * @param privateKey 私钥
+         * @param privateKey 私钥
      * @param ciphertext 密文
      */
     public byte[] decrypt(RSAPrivateKey privateKey, String ciphertext) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -175,8 +165,7 @@ public class EncrypRSA {
 
     /**
      * 指定解密类型进行解密
-     *
-     * @param key        密钥
+         * @param key        密钥
      * @param ciphertext 密文
      * @param keyType    密钥类型，默认私钥解密
      */
@@ -196,8 +185,7 @@ public class EncrypRSA {
 
     /**
      * 根据私钥解密为String
-     *
-     * @param privateKey      私钥
+         * @param privateKey      私钥
      * @param ciphertextBytes 密文
      */
     public String decryptToString(RSAPrivateKey privateKey, byte[] ciphertextBytes) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -206,8 +194,7 @@ public class EncrypRSA {
 
     /**
      * 根据私钥解密为String
-     *
-     * @param privateKey 私钥
+         * @param privateKey 私钥
      * @param ciphertext 密文
      */
     public String decryptToString(RSAPrivateKey privateKey, String ciphertext) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
@@ -216,8 +203,7 @@ public class EncrypRSA {
 
     /**
      * 根据密钥与密钥类型解密为 String
-     *
-     * @param key        密钥
+         * @param key        密钥
      * @param ciphertext 密文
      * @param keyType    密钥类型
      */
@@ -230,8 +216,7 @@ public class EncrypRSA {
 
     /**
      * 根据公钥解密为String
-     *
-     * @param publicKey
+         * @param publicKey
      * @param srcBytes
      * @return
      */
@@ -241,8 +226,7 @@ public class EncrypRSA {
 
     /**
      * String转公钥PublicKey
-     *
-     * @param key
+         * @param key
      * @return
      * @throws Exception
      */
@@ -256,8 +240,7 @@ public class EncrypRSA {
 
     /**
      * 公钥转 String
-     *
-     * @param publicKey
+         * @param publicKey
      * @return
      */
     private static String getString(RSAPublicKey publicKey) {
@@ -266,8 +249,7 @@ public class EncrypRSA {
 
     /**
      * String转私钥PrivateKey
-     *
-     * @param key
+         * @param key
      * @return
      * @throws Exception
      */
@@ -281,8 +263,7 @@ public class EncrypRSA {
 
     /**
      * 私钥转 String
-     *
-     * @param privateKey
+         * @param privateKey
      * @return
      */
     private static String getString(RSAPrivateKey privateKey) {

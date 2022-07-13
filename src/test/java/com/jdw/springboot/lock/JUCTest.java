@@ -9,8 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author ListJiang
  * @class JUC测试类
- * @remark
- * @date 2021/3/27 22:32
+ * @since 2021/3/27 22:32
  */
 
 

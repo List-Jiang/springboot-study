@@ -7,8 +7,7 @@ import java.util.List;
 /**
  * @author ListJiang
  * @class kafka自定义配置参数类
- * @remark
- * @date 2020/7/2619:23
+ * @since 2020/7/2619:23
  */
 //@ConfigurationProperties("kafka.topic")
 @Data

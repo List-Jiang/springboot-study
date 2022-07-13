@@ -6,8 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * @author ListJiang
  * @enum 状态值枚举
- * @remark
- * @date 2020/5/2714:01
+ * @since 2020/5/2714:01
  */
 public enum StatusEnum implements IEnum<Integer> {
     EFFECTIVE(1, "有效"),

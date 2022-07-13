@@ -19,8 +19,7 @@ import java.util.function.Supplier;
 /**
  * @author ListJiang
  * @class
- * @remark
- * @date 2021/4/7 10:58
+ * @since 2021/4/7 10:58
  */
 @Slf4j
 //@SpringBootTest(classes = SpringbootApplication.class)
@@ -205,8 +204,7 @@ public class ThreadTest {
     /** =======================多个任务同时执行===================*/
     /**
      * 全部执行完毕，无返回值
-     *
-     * @throws ExecutionException
+         * @throws ExecutionException
      * @throws InterruptedException
      */
     @Test
@@ -237,8 +235,7 @@ public class ThreadTest {
 
     /**
      * 谁先执行，返回谁，剩下的不执行
-     *
-     * @throws ExecutionException
+         * @throws ExecutionException
      * @throws InterruptedException
      */
     @Test

@@ -7,10 +7,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
+ * 线程安全问题简单测试
+ * 该方案其实是伪修复，只是确保了单个数据操作的原子性。如果中间出现问题，是无法保证线程安全的
  * @author ListJiang
- * @class 线程安全问题简单测试
- * @remark 该方案其实是伪修复，只是确保了单个数据操作的原子性。如果中间出现问题，是无法保证线程安全的
- * @date 2021/3/29 17:07
+ * @since 2021/3/29 17:07
  */
 public class AtomicTest {
 

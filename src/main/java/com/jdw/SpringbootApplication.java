@@ -4,7 +4,6 @@ package com.jdw;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,7 +16,7 @@ import java.net.UnknownHostException;
 
 @Slf4j
 //springboot 设置 component 扫描路径
-@ComponentScan(basePackages = {"com.jdw","com.jdw.*.*", "com.jdw.*.*.*"})
+@ComponentScan(basePackages = {"com.jdw", "com.jdw.*.*", "com.jdw.*.*.*"})
 //springboot 设置 mapper 扫描路径
 @MapperScan("com.jdw.*.mapper")
 //springboot 开启定时任务

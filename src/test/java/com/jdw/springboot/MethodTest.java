@@ -23,8 +23,7 @@ class Cat {
 /**
  * @author ListJiang
  * @class 方法引用测试
- * @remark
- * @date 2021/1/15 13:10
+ * @since 2021/1/15 13:10
  */
 @SpringBootTest
 public class MethodTest {

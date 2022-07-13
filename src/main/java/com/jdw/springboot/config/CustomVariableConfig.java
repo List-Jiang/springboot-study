@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * 自定义参数配置类
+ * 用于向spring注册自定义参数
  * @author ListJiang
- * @class 自定义参数配置类
- * @remark 用于向spring注册自定义参数
- * @date 2020/6/1010:15
+ * @since 2020/6/1010:15
  */
 // 标明这是一个配置类
 @Configuration

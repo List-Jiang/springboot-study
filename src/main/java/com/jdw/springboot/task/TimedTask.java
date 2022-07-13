@@ -9,10 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 /**
+ * 定时任务测试类
  * @author ListJiang
- * @class 定时任务测试类
- * @remark 定时任务测试类
- * @date 2020/6/815:01
+ * @since 2020/6/815:01
  */
 //交给 spring 管理
 @Component

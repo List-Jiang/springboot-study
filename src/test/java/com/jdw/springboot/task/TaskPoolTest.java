@@ -1,9 +1,10 @@
 package com.jdw.springboot.task;
 
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,13 +12,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
+/**线程池测试类
  * @author ListJiang
- * @class 线程池测试类
- * @remark
- * @date 2020/7/2421:27
+ * @since 2020/7/2421:27
  */
 public class TaskPoolTest {
+
+    private static final RestTemplate restTemplate = new RestTemplateBuilder().build();
 
     /**
      * 线程池默认策略
@@ -29,18 +30,13 @@ public class TaskPoolTest {
     @Test
     public void AbortPolicyDemo() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1));
         // 设置线程池的拒绝策略为"中止",会抛出拒绝执行异常
         pool.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         // 新建10个任务，并将他们添加到线程中
         for (int i = 0; i < 10; i++) {
             int finalI = i;
-            pool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("线程" + finalI);
-                }
-            });
+            pool.execute(() -> System.out.println("线程" + finalI));
         }
         pool.shutdown();
     }
@@ -54,18 +50,13 @@ public class TaskPoolTest {
     @Test
     public void DiscardPolicyDemo() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1));
         // 设置线程池的拒绝策略为"丢弃"。
         pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardPolicy());
         // 新建10个任务，并将他们添加到线程中
         for (int i = 0; i < 10; i++) {
             int finalI = i;
-            pool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("线程" + finalI);
-                }
-            });
+            pool.execute(() -> System.out.println("线程" + finalI));
         }
         pool.shutdown();
     }
@@ -78,21 +69,18 @@ public class TaskPoolTest {
      * 第 n 个任务，如果被拒绝则由调用线程（该案例中为 main）直接执行任务。
      */
     @Test
-    public void CallerRunsPolicyDemo() throws InterruptedException {
+    public void CallerRunsPolicyDemo() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1));
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1));
         // 设置线程池的拒绝策略为"谁调用谁执行"
         pool.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         // 新建10个任务，并将他们添加到线程中
         for (int i = 0; i < 10; i++) {
 //            Thread.sleep(1000);
             int finalI = i;
-            pool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.print("第" + (finalI + 1) + "个任务：");
-                    System.out.println("线程" + Thread.currentThread().getName());
-                }
+            pool.execute(() -> {
+                System.out.print("第" + (finalI + 1) + "个任务：");
+                System.out.println("线程" + Thread.currentThread().getName());
             });
         }
         pool.shutdown();
@@ -105,20 +93,17 @@ public class TaskPoolTest {
      * 前两个任务正常执行，后面的新任务进来都采用抛弃掉等待队列里面最老任务的策略
      */
     @Test
-    public void DiscardOldestPolicyDemo() throws InterruptedException {
+    public void DiscardOldestPolicyDemo() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(2));
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<>(2));
         // 设置线程池的拒绝策略为"丢弃队列最老等待任务"
         pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
         // 新建10个任务，并将他们添加到线程中
         for (int i = 0; i < 10; i++) {
             int finalI = i;
-            pool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.print("第" + (finalI + 1) + "个任务：");
-                    System.out.println("线程" + Thread.currentThread().getName());
-                }
+            pool.execute(() -> {
+                System.out.print("第" + (finalI + 1) + "个任务：");
+                System.out.println("线程" + Thread.currentThread().getName());
             });
         }
         pool.shutdown();
@@ -126,30 +111,27 @@ public class TaskPoolTest {
 
 
     @Test
-    public void DiscardOldestPolicyDemo1() throws InterruptedException {
+    public void DiscardOldestPolicyDemo1() {
         // 创建线程池。线程池的"最大池大小"和"核心池大小"都为2，"线程池"的阻塞队列容量为1(CAPACITY)。
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(10, 50, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(20));
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(10, 50, 1, TimeUnit.SECONDS, new ArrayBlockingQueue<>(20));
         // 设置线程池的拒绝策略为"丢弃队列最老等待任务"
         pool.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
 
         String url = "http://localhost:8082/api1/forward/gcjs_lhch_wt/1c4e88acd48d0c03783a1441075cb160?i=1";
         String url2 = "http://localhost:8082/getChukuNumber?type=ewfrqw";
         String url3 = "http://localhost:8082/getChukuNumber2?type=ewrew";
-        JSONObject jsonObject = JSON.parseObject("{\n" +
-                "    \"key\":\"value\",\n" +
-//                "    \"i\":\"1\"\n" +
-                "}");
+        //                "    \"i\":\"1\"\n" +
+        JSONObject jsonObject = JSON.parseObject("""
+                {
+                    "key":"value",
+                }""");
         // 新建10个任务，并将他们添加到线程中
         for (int i = 0; i < 10; i++) {
             int finalI = i;
-            pool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    jsonObject.put("i", finalI + 1);
-                    String body = HttpUtil.createPost(url2).execute().body();
-//                    String body = "HttpUtil.createPost(url).body(jsonObject.toString()).execute().body()";
-                    System.out.println("第" + (finalI + 1) + "个任务：" + body);
-                }
+            pool.execute(() -> {
+                jsonObject.put("i", finalI + 1);
+                String body = restTemplate.postForObject(url2, null, String.class);
+                System.out.println("第" + (finalI + 1) + "个任务：" + body);
             });
         }
         pool.shutdown();
@@ -158,22 +140,20 @@ public class TaskPoolTest {
     @Test
     public void test() {
         String str = "[/apifile/mongo/view/{_id} || /apifile/mongo/view/{_id}]";
-        if (str.indexOf('[') == 0 && str.indexOf(']') == str.length() - 1) {
-            String substring = str.substring(1, str.length() - 1);
-            String string = substring.replaceAll("\\|\\|", ",").replaceAll(" ", "");
-            System.out.println(string);
-        }
+        String substring = str.substring(1, str.length() - 1);
+        String string = substring.replaceAll("\\|\\|", ",").replaceAll(" ", "");
+        System.out.println(string);
         String url2 = "http://localhost:8082/readThreadPool?type=ewfrqw";
-        JSONObject jsonObject = JSON.parseObject("{\n" +
-                "    \"key\":\"value\",\n" +
-//                "    \"i\":\"1\"\n" +
-                "}");
+        //                "    \"i\":\"1\"\n" +
+        JSONObject jsonObject = JSON.parseObject("""
+                {
+                    "key":"value",
+                }""");
         Map<String, String> t = new HashMap<>();
-        t.put("dfsdfs", "fsdfs");
         t.put("dfsdfs", "放大方式");
         System.out.println(t);
         for (int i = 0; i < 10; i++) {
-            String body = HttpUtil.createPost(url2 + i).body(jsonObject.toString()).execute().body();
+            String body = restTemplate.postForObject(url2 + i, jsonObject, String.class);
             System.out.println(body);
         }
 

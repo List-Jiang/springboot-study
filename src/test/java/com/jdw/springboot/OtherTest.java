@@ -10,10 +10,9 @@ import java.util.Base64;
 import java.util.List;
 
 /**
+ * 其他与项目无关测试类
  * @author ListJiang
- * @class 其他与项目无关测试类
- * @remark
- * @date 2020/8/188:16
+ * @since 2020/8/188:16
  */
 public class OtherTest {
     @Test
@@ -54,7 +53,7 @@ public class OtherTest {
         System.out.println("原文原文文" + msg1);
         System.out.println("编码解码后" + str1);
         //获取 Long 类型Base64编码
-        Object oldObject = new Long("12354687");
+        Object oldObject = Long.valueOf("12354687");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
         objectOutputStream.writeObject(oldObject);
@@ -179,7 +178,7 @@ public class OtherTest {
 
     @Test
     public void IntegerTest() {
-        Integer t = new Integer(0);
+        Integer t = Integer.valueOf(0);
         System.out.println(t);
         t = -2147483648;
         System.out.println(t);
@@ -190,8 +189,8 @@ public class OtherTest {
 
     @Test
     public void test() {
-        final String proAreaids = "510703000000,510704000000,510705000000,510711000000,510713000000,510714000000,510715000000,510717000000,510722000000,510723000000,510725000000,510726000000,510727000000,510781000000";
-        System.out.println(proAreaids.contains("510704000000"));
+        final String areaIds = "510703000000,510704000000,510705000000,510711000000,510713000000,510714000000,510715000000,510717000000,510722000000,510723000000,510725000000,510726000000,510727000000,510781000000";
+        System.out.println(areaIds.contains("510704000000"));
 
         for (int errNum = 0; errNum < 100; errNum++) {
             while (errNum < 20) {

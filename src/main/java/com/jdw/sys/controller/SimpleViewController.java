@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 简易前端处理器
+ * get不可涉及数据的请求，例如，登录，忘记密码，网站介绍......
  * @author ListJiang
- * @class 简易前端处理器
- * @remark get不涉及数据的请求，例如，登录，忘记密码，网站介绍......
- * @date 2020/7/2513:01
+ * @since 2020/7/2513:01
  */
 @Controller
 public class SimpleViewController {

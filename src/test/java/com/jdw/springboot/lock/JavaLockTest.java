@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 /**
  * @author ListJiang
  * @class Java基础锁
- * @remark
- * @date 2021/3/27 12:14
+ * @since 2021/3/27 12:14
  */
 
 class Ticket {
@@ -87,8 +86,7 @@ public class JavaLockTest {
 
     /**
      * 打印票数
-     *
-     * @param ticket 卖票方
+         * @param ticket 卖票方
      * @param people 买票方
      */
     public void print(Ticket ticket, People... people) {

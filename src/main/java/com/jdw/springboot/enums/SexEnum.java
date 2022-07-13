@@ -7,8 +7,7 @@ import lombok.Getter;
 /**
  * @author ListJiang
  * @enum 性别枚举类
- * @remark
- * @date 2020/5/2710:15
+ * @since 2020/5/2710:15
  */
 @Getter
 public enum SexEnum {

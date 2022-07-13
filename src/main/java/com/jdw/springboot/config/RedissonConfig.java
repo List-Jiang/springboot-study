@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
 /**
  * @author ListJiang
  * @class
- * @remark
- * @date 2021/3/7 14:31
+ * @since 2021/3/7 14:31
  */
 @Configuration
 public class RedissonConfig {
@@ -34,7 +33,7 @@ public class RedissonConfig {
                 .getSentinel()
                 .getNodes().stream()
                 .map(redisProperties.isSsl() ? "rediss://"::concat : "redis://"::concat)
-                .collect(Collectors.toList());
+                .toList();
         config.useSentinelServers()
                 .addSentinelAddress(newNodes.toArray(new String[3]))
                 .setMasterName(redisProperties.getSentinel().getMaster())

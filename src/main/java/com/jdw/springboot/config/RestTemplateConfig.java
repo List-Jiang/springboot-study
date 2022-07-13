@@ -23,10 +23,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * restTemplate配置类
  * @author ListJiang
- * @class restTemplate配置类
- * @remark
- * @date 2021/2/18 15:42
+ * @since 2021/2/18 15:42
  */
 @Slf4j
 @Configuration

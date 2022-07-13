@@ -14,8 +14,7 @@ import java.util.Enumeration;
 /**
  * @author ListJiang
  * @class controller切面处理
- * @remark
- * @date 2020/6/810:22
+ * @since 2020/6/810:22
  */
 //标明这是一个切面类
 @Aspect

@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
+ * freemaker建言类
+ * 配置freemaker全局model实例属性
  * @author ListJiang
- * @class freemaker建言类
- * @remark 配置freemaker全局model实例属性
- * @date 2020/9/22 15:09
+ * @since 2020/9/22 15:09
  */
 @ControllerAdvice
 public class FreemakerAdvice {

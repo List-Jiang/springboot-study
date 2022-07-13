@@ -10,8 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 /**
  * @author ListJiang
  * @class redis测试
- * @remark
- * @date 2021/3/7 18:16
+ * @since 2021/3/7 18:16
  */
 @SpringBootTest(classes = SpringbootApplication.class)
 @Slf4j
