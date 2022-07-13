@@ -8,13 +8,12 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * <p>
- *
  * </p>
- *
  * @author jdw
  * @since 2020-06-03
  */
@@ -23,9 +22,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@Schema(name = "RolePermissions对象", description = "")
+@Schema(name = "RolePermissions对象")
 public class RolePermissions implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @TableId("id")

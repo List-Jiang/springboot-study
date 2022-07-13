@@ -15,7 +15,6 @@ import java.net.URI;
 
 /**
  * description Spring 数据序列化相关测试
- *
  * @author ListJiang
  * @since 2022-01-19
  */
@@ -37,6 +36,7 @@ class FormatterTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(result -> {
                     JSONObject jsonObject1 = JSONObject.parseObject(result.getRequest().getContentAsString());
+                    assert jsonObject1 != null;
                     Assertions.assertTrue(jsonObject1.getString("money").startsWith("￥"), "money 未序列化为以 ￥ 开头的字符串");
                 });
     }

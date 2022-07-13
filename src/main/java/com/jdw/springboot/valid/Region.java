@@ -17,15 +17,13 @@ public @interface Region {
 
     /**
      * 将validator进行分类，不同的类group中会执行不同的validator操作
-     *
-     * @return validator的分类类型
+         * @return validator的分类类型
      */
     Class<?>[] groups() default {};
 
     /**
      * 主要是针对bean，很少使用
-     *
-     * @return 负载
+         * @return 负载
      */
     Class<? extends Payload>[] payload() default {};
 }

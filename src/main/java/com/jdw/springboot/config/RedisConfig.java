@@ -23,8 +23,6 @@ import static io.lettuce.core.ReadFrom.REPLICA_PREFERRED;
 
 /**
  * 开启缓存支持
- *
- * @Return:
  */
 @Slf4j
 @Configuration
@@ -34,15 +32,6 @@ public class RedisConfig extends CachingConfigurerSupport {
     private final RedisProperties redisProperties;
 
 
-    /**
-     * RedisTemplate配置
-     *
-     * @param lettuceConnectionFactory
-     * @return
-     */
-    /**
-     * Lettuce
-     */
     @Bean
     @ConditionalOnProperty(prefix = "spring.redis", name = "sentinel.nodes")
     public LettuceConnectionFactory sentinelLettuceConnectionFactory() {

@@ -2,12 +2,12 @@ package com.jdw.springboot.event;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
  * 显示实现 ApplicationListener 接口的方式创立监听器
- *
  * @author ListJiang
  * @since : 2022/1/18
  */
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class CustomEventListener implements ApplicationListener<CustomEvent> {
 
     @Override
-    public void onApplicationEvent(CustomEvent event) {
+    public void onApplicationEvent(@NotNull CustomEvent event) {
         log.debug("实现类方式监听器收到事件：" + event);
     }
 }

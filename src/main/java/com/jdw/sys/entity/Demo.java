@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,9 +15,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- *
  * </p>
- *
  * @author jdw
  * @since 2020-05-26
  */
@@ -26,6 +25,7 @@ import java.time.LocalDateTime;
 @Schema(name = "Demo对象")
 public class Demo implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -133,7 +133,6 @@ public class Demo implements Serializable {
     private Integer status;
 
     public static String test03(String s1, String s2, String s3) {
-        String s = s1 + s2 + s3;
-        return s;
+        return s1 + s2 + s3;
     }
 }

@@ -7,7 +7,6 @@ import com.jdw.sys.entity.Permissions;
  * <p>
  * Mapper 接口
  * </p>
- *
  * @author jdw
  * @since 2020-06-03
  */
