@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * <p>
@@ -24,7 +25,7 @@ public interface IUserService extends IService<User> {
     User getUserById(@Param("id") Long id);
 
     @Async
-    List<User> getUserByName(@Param("name") String name);
+    CompletableFuture<List<User>> getUserByName(@Param("name") String name);
 
     @Cacheable
     User getUserByAccount(@Param("account") String account);
