@@ -12,6 +12,8 @@ public class IdCardValidator implements ConstraintValidator<IdCard, CharSequence
     private static final char[] CODE = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
 
     private static final Pattern PROVINCIAL_PATTERN = Pattern.compile("1[1-5]|2[123]|3[1-7]|4[1-6]|5[0-4]|6[1-5]|71|81|82");
+    private static final Pattern NUMERIC_PATTERN_15 = Pattern.compile("^\\d{15}$");
+    private static final Pattern NUMERIC_PATTERN_17 = Pattern.compile("^\\d{17}$");
     private static final DateTimeFormatter yyyyMMdd = DateTimeFormatter.ofPattern("yyyyMMdd");
 
 
@@ -24,7 +26,9 @@ public class IdCardValidator implements ConstraintValidator<IdCard, CharSequence
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
         boolean state = false;
         try {
-            if (PROVINCIAL_PATTERN.matcher(value.subSequence(0, 2)).matches() && (value.length() == 15 || value.length() == 18)) {
+            if (PROVINCIAL_PATTERN.matcher(value.subSequence(0, 2)).matches()
+                    && ((value.length() == 15 && NUMERIC_PATTERN_15.matcher(value.subSequence(0, 15)).matches())
+                    || (value.length() == 18 && NUMERIC_PATTERN_17.matcher(value.subSequence(0, 17)).matches()))) {
                 LocalDate.parse(value.subSequence(6, 14), yyyyMMdd);
                 if (value.length() == 18) {
                     int sum = 0;
