@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * 其他与项目无关测试类
+ *
  * @author ListJiang
  * @since 2020/8/188:16
  */
@@ -82,12 +85,12 @@ public class OtherTest {
      */
     @Test
     public void CaseFormat1() {
-        System.out.println(CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, "test-data"));//testData
-        System.out.println(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data"));//testData
-        System.out.println(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "test_data"));//TestData
-        System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "testdata"));//testdata
-        System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "TestData"));//test_data
-        System.out.println(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, "testData"));//test-data
+        assertEquals(CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, "test-data"), "testData");
+        assertEquals(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, "test_data"), "testData");
+        assertEquals(CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, "test_data"), "TestData");
+        assertEquals(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "testdata"), "testdata");
+        assertEquals(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, "TestData"), "test_data");
+        assertEquals(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, "testData"), "test-data");
     }
 
     @Test
@@ -178,7 +181,7 @@ public class OtherTest {
 
     @Test
     public void IntegerTest() {
-        Integer t = Integer.valueOf(0);
+        Integer t = 0;
         System.out.println(t);
         t = -2147483648;
         System.out.println(t);
