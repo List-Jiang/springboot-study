@@ -1,7 +1,6 @@
 package com.jdw.springboot.kafka;
 
-import cn.hutool.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.alibaba.fastjson2.JSONObject;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.HandlerMethod;
@@ -43,7 +42,7 @@ public class KafkaProducer {
     @PostMapping("/send")
     public String sendMessage(@RequestBody JSONObject jsonObject) {
         kafkaTemplate.send("topic1", jsonObject.toString());
-        kafkaTemplate.send("testTopic", new Integer(1), "key", jsonObject.toString());
+        kafkaTemplate.send("testTopic", 1, "key", jsonObject.toString());
         return "OK";
     }
 

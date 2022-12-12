@@ -1,6 +1,6 @@
 package com.jdw.sys.service.impl;
 
-import com.jdw.sys.entity.RolePermissions;
+import com.jdw.sys.entity.RolePermission;
 import com.jdw.sys.mapper.RolePermissionsMapper;
 import com.jdw.sys.service.IRolePermissionsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2020-06-03
  */
 @Service
-public class RolePermissionsServiceImpl extends ServiceImpl<RolePermissionsMapper, RolePermissions> implements IRolePermissionsService {
+public class RolePermissionsServiceImpl extends ServiceImpl<RolePermissionsMapper, RolePermission> implements IRolePermissionsService {
 
 }

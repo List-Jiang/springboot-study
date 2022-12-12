@@ -1,6 +1,6 @@
 package com.jdw.sys.service;
 
-import com.jdw.sys.entity.RolePermissions;
+import com.jdw.sys.entity.RolePermission;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author jdw
  * @since 2020-06-03
  */
-public interface IRolePermissionsService extends IService<RolePermissions> {
+public interface IRolePermissionsService extends IService<RolePermission> {
 
 }

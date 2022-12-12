@@ -1,6 +1,6 @@
 package com.jdw.sys.service;
 
-import com.jdw.sys.entity.Permissions;
+import com.jdw.sys.entity.Permission;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author jdw
  * @since 2020-06-03
  */
-public interface IPermissionsService extends IService<Permissions> {
+public interface IPermissionsService extends IService<Permission> {
 
 }

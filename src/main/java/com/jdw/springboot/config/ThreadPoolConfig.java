@@ -1,14 +1,11 @@
 package com.jdw.springboot.config;
 
 import org.springframework.context.annotation.Bean;
-import java.util.concurrent.ThreadPoolExecutor;
-
+import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -17,15 +14,16 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @remark
  * @date 2020/7/2420:50
  */
-@Component
+@Configuration
 public class ThreadPoolConfig {
     /**
      * 该线程池SpringBoot默认自动装配了,此处手写是为了更好的理解
      * 主要是为了，重写线程池拒绝策略
+     *
      * @return
      */
     @Bean(name = "taskExecutor")
-    public Executor taskExecutor(){
+    public ThreadPoolTaskExecutor taskExecutor() {
         // 线程 池 任务 执行者
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setCorePoolSize(10);//核心线程数
@@ -50,6 +48,7 @@ public class ThreadPoolConfig {
 
     /**
      * 定时任务
+     *
      * @return
      */
     @Bean("taskScheduler")

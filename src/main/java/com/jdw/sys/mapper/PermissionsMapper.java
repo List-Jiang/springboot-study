@@ -1,6 +1,6 @@
 package com.jdw.sys.mapper;
 
-import com.jdw.sys.entity.Permissions;
+import com.jdw.sys.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author jdw
  * @since 2020-06-03
  */
-public interface PermissionsMapper extends BaseMapper<Permissions> {
+public interface PermissionsMapper extends BaseMapper<Permission> {
 
 }

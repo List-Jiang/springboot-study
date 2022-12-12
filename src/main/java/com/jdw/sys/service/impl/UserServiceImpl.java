@@ -1,21 +1,14 @@
 package com.jdw.sys.service.impl;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
-import com.baomidou.mybatisplus.extension.kotlin.KtQueryWrapper;
 import com.jdw.sys.entity.*;
 import com.jdw.sys.mapper.*;
 import com.jdw.sys.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -76,18 +69,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //获取一个角色
             Role role = roleMapper.selectById(userRole.getRoleId());
             //新建权限集合
-            Set<Permissions> permissionsSet = new HashSet<>();
+            Set<Permission> permissionSet = new HashSet<>();
             //获取角色权限关系 list
-            List<RolePermissions> rolePermissionsList = rolePermissionsMapper.getRolePermissionsByRoleId(role.getId());
+            List<RolePermission> rolePermissionList = rolePermissionsMapper.getRolePermissionsByRoleId(role.getId());
             //迭代角色权限关系
-            rolePermissionsList.forEach(rolePermissions -> {
+            rolePermissionList.forEach(rolePermission -> {
                 //获取一个权限
-                Permissions permissions = permissionsMapper.selectById(rolePermissions.getPermissionsId());
+                Permission permission = permissionsMapper.selectById(rolePermission.getPermissionsId());
                 //添加权限对象至权限集合
-                permissionsSet.add(permissions);
+                permissionSet.add(permission);
             });
             //角色设置权限集合
-            role.setPermissions(permissionsSet);
+            role.setPermissions(permissionSet);
             //添加角色对象至角色集合
             roleSet.add(role);
         });

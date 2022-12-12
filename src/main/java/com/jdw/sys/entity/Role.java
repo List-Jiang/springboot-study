@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import com.baomidou.mybatisplus.annotation.TableId;
 
 /**
  * <p>
@@ -46,5 +45,5 @@ public class Role implements Serializable {
      * 权限集合
      */
     @TableField(exist = false)
-    private Set<Permissions> permissions;
+    private Set<Permission> permissions;
 }

@@ -1,7 +1,7 @@
 package com.jdw.sys.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jdw.sys.entity.RolePermissions;
+import com.jdw.sys.entity.RolePermission;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author jdw
  * @since 2020-06-03
  */
-public interface RolePermissionsMapper extends BaseMapper<RolePermissions> {
+public interface RolePermissionsMapper extends BaseMapper<RolePermission> {
     @Select("select * from role_ermissions where user_id = #{roleId}")
-    List<RolePermissions> getRolePermissionsByRoleId(Long roleId);
+    List<RolePermission> getRolePermissionsByRoleId(Long roleId);
 }
