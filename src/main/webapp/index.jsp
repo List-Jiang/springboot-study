@@ -14,7 +14,7 @@ Release timestamp: ${ info.getReleaseDate(majorVersion, minorVersion).time }
 <from>
     account；<input type="text" name="account">
     password：<input type="text" name="password">
-    <input type="button" name="提交">
+    <input type="button" value="提交">
 </from>
 </body>
 </html>

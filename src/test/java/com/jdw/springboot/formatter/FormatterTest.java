@@ -1,6 +1,6 @@
 package com.jdw.springboot.formatter;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import java.net.URI;
 
 /**
  * description Spring 数据序列化相关测试
+ *
  * @author ListJiang
  * @since 2022-01-19
  */

@@ -15,8 +15,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @Slf4j
-//springboot 设置 component 扫描路径
-@ComponentScan(basePackages = {"com.jdw", "com.jdw.*.*", "com.jdw.*.*.*"})
 //springboot 设置 mapper 扫描路径
 @MapperScan("com.jdw.*.mapper")
 //springboot 开启定时任务
@@ -25,7 +23,8 @@ import java.net.UnknownHostException;
 @EnableAsync
 //springboot 开启缓存
 @EnableCaching
-@SpringBootApplication
+//springboot 设置 component 扫描路径
+@SpringBootApplication(scanBasePackages = {"com.jdw", "com.jdw.*.*", "com.jdw.*.*.*"})
 public class SpringbootApplication {
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(SpringbootApplication.class, args);
