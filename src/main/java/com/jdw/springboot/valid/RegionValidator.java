@@ -1,7 +1,8 @@
 package com.jdw.springboot.valid;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.regex.Pattern;
 
 /**
@@ -18,6 +19,7 @@ public class RegionValidator implements ConstraintValidator<Region, CharSequence
             patterns[i] = Pattern.compile(region.regexps()[i]);
         }
     }
+
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
         if (value == null) {

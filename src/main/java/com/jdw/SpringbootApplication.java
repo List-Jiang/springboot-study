@@ -1,7 +1,5 @@
-package com.jdw.springboot;
+package com.jdw;
 
-//import com.jdw.springboot.entity.User;
-//import com.jdw.springboot.mapper.UserMapper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -9,17 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-@SpringBootApplication
 @Slf4j
-//springboot 设置 component 扫描路径
-@ComponentScan(basePackages = {"com.jdw.*.*", "com.jdw.*.*.*"})
 //springboot 设置 mapper 扫描路径
 @MapperScan("com.jdw.*.mapper")
 //springboot 开启定时任务
@@ -28,6 +22,8 @@ import java.net.UnknownHostException;
 @EnableAsync
 //springboot 开启缓存
 @EnableCaching
+//springboot 设置 component 扫描路径
+@SpringBootApplication(scanBasePackages = {"com.jdw", "com.jdw.*.*", "com.jdw.*.*.*"})
 public class SpringbootApplication {
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(SpringbootApplication.class, args);

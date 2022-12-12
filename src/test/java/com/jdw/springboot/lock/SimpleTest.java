@@ -8,10 +8,11 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 /**
- * @author ListJiang
- * @class 线程安全问题简单测试
- * @remark 简单业务逻辑测试，一个数值减，一个数值加。确保两数之和不会因为多线程操作而出错即为线程安全
- * @date 2021/3/29 17:07
+ * 线程安全问题简单测试
+ * 简单业务逻辑测试，一个数值减，一个数值加。确保两数之和不会因为多线程操作而出错即为线程安全
+ *
+ * @author 蒋德文
+ * @since 2021/3/29 17:07
  */
 public class SimpleTest {
 
@@ -88,6 +89,7 @@ public class SimpleTest {
             lock.unlock();
         }
     };
+
     @Test
     public void Test3() {
         Flux.range(1, 100).toStream().collect(Collectors.toList())

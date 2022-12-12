@@ -3,95 +3,92 @@ package com.jdw.sys.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import java.lang.String;
-import java.time.LocalDateTime;
-import java.util.Set;
-
 import com.jdw.springboot.enums.SexEnum;
 import com.jdw.springboot.enums.StatusEnum;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * <p>
- * 
  * </p>
- *
  * @author jdw
  * @since 2020-05-27
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="User对象", description="")
+@Schema(name = "User对象")
 public class User implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-    * 主键ID
-    */
-    @ApiModelProperty(value = "主键ID")
+     * 主键ID
+     */
+    @Schema(name = "主键ID")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-    * 姓名
-    */
-    @ApiModelProperty(value = "姓名")
+     * 姓名
+     */
+    @Schema(name = "姓名")
     private String name;
 
     /**
-    * 年龄
-    */
-    @ApiModelProperty(value = "年龄")
+     * 年龄
+     */
+    @Schema(name = "年龄")
     private Integer age;
 
     /**
-    * 邮箱
-    */
-    @ApiModelProperty(value = "邮箱")
+     * 邮箱
+     */
+    @Schema(name = "邮箱")
     private String email;
 
     /**
-    * 性别
-    */
-    @ApiModelProperty(value = "性别")
+     * 性别
+     */
+    @Schema(name = "性别")
     private SexEnum sex;
 
     /**
-    * 有效状态
-    */
-    @ApiModelProperty(value = "有效状态")
+     * 有效状态
+     */
+    @Schema(name = "有效状态")
     private StatusEnum status;
 
     /**
      * 登录账号
      */
-    @ApiModelProperty(value = "登录账号")
+    @Schema(name = "登录账号")
     private String account;
 
     /**
      * 登录密码
      */
-    @ApiModelProperty(value = "登录密码")
+    @Schema(name = "登录密码")
     private String password;
 
     /**
      * 创建时间
      */
-    @ApiModelProperty(value = "创建时间")
+    @Schema(name = "创建时间")
     private LocalDateTime createDate;
 
     /**
      * 修改时间
      */
-    @ApiModelProperty(value = "修改时间")
+    @Schema(name = "修改时间")
     private LocalDateTime updateDate;
 
     /**

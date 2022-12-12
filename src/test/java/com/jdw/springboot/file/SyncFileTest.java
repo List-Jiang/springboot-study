@@ -1,5 +1,6 @@
 package com.jdw.springboot.file;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +11,6 @@ import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,10 +20,10 @@ import java.time.ZoneOffset;
 import java.util.Arrays;
 
 /**
- * @author ListJiang
- * @class 同步文件测试类
- * @remark
- * @date 2021/2/18 15:25
+ * 同步文件测试类
+ *
+ * @author 蒋德文
+ * @since 2021/2/18 15:25
  */
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -48,7 +48,7 @@ public class SyncFileTest {
     }
 
     @Test
-    public void bigFileTest1() throws IOException {
+    public void bigFileTest1() {
         long contentLength = restTemplate.headForHeaders(bigFileUrl).getContentLength();
         RequestCallback requestCallback = request -> {
             LocalDateTime start = LocalDateTime.now();
@@ -78,7 +78,7 @@ public class SyncFileTest {
     }
 
     @Test
-    public void bigFileTest2() throws IOException {
+    public void bigFileTest2() {
         long contentLength = restTemplate.headForHeaders(bigFileUrl).getContentLength();
         Assert.isTrue(contentLength > 0, "获取文件大小异常");
         boolean isBigFile = contentLength >= BIG_FILE_SIZE;

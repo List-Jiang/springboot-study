@@ -1,11 +1,11 @@
 package com.jdw.sys.mapper;
 
-import com.jdw.sys.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.jdw.sys.entity.Role;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author jdw

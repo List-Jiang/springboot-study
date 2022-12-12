@@ -3,19 +3,17 @@ package com.jdw.sys.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import java.lang.String;
-import java.util.Set;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.Set;
+
 /**
  * <p>
- * 
  * </p>
  *
  * @author jdw
@@ -24,15 +22,16 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Role对象", description="")
+@Schema(name = "Role对象")
 public class Role implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-    * id
-    */
-    @ApiModelProperty(value = "id")
+     * id
+     */
+    @Schema(name = "id")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 

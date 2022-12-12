@@ -1,7 +1,8 @@
 server:
-  port: 80
+  port: 8080
   servlet:
     context-path:
+
 spring:
   devtools:
     restart:
@@ -9,32 +10,6 @@ spring:
       additional-paths: src/main/java
   datasource:
     dynamic:
-      #阿里巴巴德鲁伊连接池配置
-      druid: # 全局druid参数，绝大部分值和默认保持一致。(现已支持的参数如下,不清楚含义不要乱设置)
-        # 连接池的配置信息
-        # 初始化大小，最小，最大
-        initial-size: 5
-        min-idle: 5
-        maxActive: 20
-        # 配置获取连接等待超时的时间
-        maxWait: 60000
-        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-        timeBetweenEvictionRunsMillis: 60000
-        # 配置一个连接在池中最小生存的时间，单位是毫秒
-        minEvictableIdleTimeMillis: 300000
-        validationQuery: SELECT 1 FROM DUAL
-        testWhileIdle: true
-        testOnBorrow: false
-        testOnReturn: false
-        # 打开PSCache，并且指定每个连接上PSCache的大小
-        poolPreparedStatements: true
-        maxPoolPreparedStatementPerConnectionSize: 20
-        # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
-        filters: stat,wall,slf4j
-        # 慢SQL记录
-        stat:
-          log-slow-sql: true
-          slow-sql-millis: 5000
       #设置默认的数据源或者数据源组,默认值即为master
       primary: test_1
       #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动会使用默认数据源.
@@ -42,14 +17,18 @@ spring:
       datasource:
         test_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/database1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
-          username: user1
-          password: password1
+          url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+          username: root
+          password: root
         test_2:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/database1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
-          username: user1
-          password: password1
+          url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+          username: root
+          password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8
+    username: root
+    password: root
   servlet:
     multipart:
       enabled: true
@@ -69,60 +48,74 @@ spring:
       suffix: .jsp
   resource:
     static-locations: classpath:/static/,classpath:/public/
-    # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
-    #  kafka:
-    # Kafka集群
-    bootstrap-servers: 127.0.0.1:9091,127.0.0.1:9092,127.0.0.1:9093
-    # Kafka生产者配置
-    producer:
-      # 重试次数
-      retries: 2
-      # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
-      # 0：不等待返回的acks（可能会丢数据，因为发送消息没有了失败重试机制，但是这是最低延迟）
-      # 1：消息发送给kafka分区中的leader后就返回（如果follower没有同步完成leader就宕机了，就会丢数据）
-      # -1（默认）：等待所有follower同步完消息后再发送（绝对不会丢数据）
-      acks: 1
-      # 消息累计到batch-size的值后，才会发送消息，默认为16384
-      batch-size: 16384
-      properties:
-        # 提交延时：2ms,当消息累计一直没到batch-size的值。过了这个时间就发送消息。
-        linger.ms: 2
-      # 生产端内存缓冲区大小
-      buffer-memory: 33554432
-      #k afka序列化类配置
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    # kafka消费者配置
-    consumer:
-      # 配置默认消费者分组id
-      group-id: defaultConsumerGroup
-      # 启动自动提交
-      enable-auto-commit: true
-      # 自动提交间隔
-      auto-commit-interval: 100ms
-      # kafka意外宕机时，再次开启消息消费的策略，共有三种策略
-      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
-      # earliest:重置为分区中最小的offset;（即从最早的未消费过的开始消费）
-      # latest:重置为分区中最新的offset（消费分区中新产生的数据，即从现在最新产生的开始消费。存在丢失数据风险）;
-      # none:只要有一个分区不存在已提交的offset,就抛出异常;
-      auto-offset-reset: earliest
-      #kafka反序列化类配置
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      #消费者单次取最大消费数
-      max-poll-records: 20
-    # kafka监听器配置
-    listener:
-      # 监听topics不存在是否无法启动项目
-      missing-topics-fatal: false
-      # 消费方式：single，单一消费；batch,批次消费
-      type: single
-    topic:
-      group-id: kafkaGroup1
-      toipic-name:
-        - topic1
-        - topic2
-        - topic3
+  # kafka配置，这里关闭。必须关闭所有引入了kafka配置空间下的key-value的bean
+  data:
+    redis:
+      lettuce:
+        pool:
+          max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+          max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+          max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+          min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+        shutdown-timeout: 100ms
+      database: 0
+      password:
+      username:
+      port: 6379
+      host: localhost
+#  kafka:
+#    # Kafka集群
+#    bootstrap-servers: 172.165.165.101:9092,172.165.165.102:9092,172.165.165.103:9092
+#    # Kafka生产者配置
+#    producer:
+#      # 重试次数
+#      retries: 2
+#      # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+#      # 0：不等待返回的acks（可能会丢数据，因为发送消息没有了失败重试机制，但是这是最低延迟）
+#      # 1：消息发送给kafka分区中的leader后就返回（如果follower没有同步完成leader就宕机了，就会丢数据）
+#      # -1（默认）：等待所有follower同步完消息后再发送（绝对不会丢数据）
+#      acks: 1
+#      # 消息累计到batch-size的值后，才会发送消息，默认为16384
+#      batch-size: 16384
+#      properties:
+#        # 提交延时：2ms,当消息累计一直没到batch-size的值。过了这个时间就发送消息。
+#        linger.ms: 2
+#      # 生产端内存缓冲区大小
+#      buffer-memory: 33554432
+#      #k afka序列化类配置
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    # kafka消费者配置
+#    consumer:
+#      # 配置默认消费者分组id
+#      group-id: defaultConsumerGroup
+#      # 启动自动提交
+#      enable-auto-commit: true
+#      # 自动提交间隔
+#      auto-commit-interval: 100ms
+#      # kafka意外宕机时，再次开启消息消费的策略，共有三种策略
+#      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+#      # earliest:重置为分区中最小的offset;（即从最早的未消费过的开始消费）
+#      # latest:重置为分区中最新的offset（消费分区中新产生的数据，即从现在最新产生的开始消费。存在丢失数据风险）;
+#      # none:只要有一个分区不存在已提交的offset,就抛出异常;
+#      auto-offset-reset: earliest
+#      #kafka反序列化类配置
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      #消费者单次取最大消费数
+#      max-poll-records: 20
+#    # kafka监听器配置
+#    listener:
+#      # 监听topics不存在是否无法启动项目
+#      missing-topics-fatal: false
+#      # 消费方式：single，单一消费；batch,批次消费
+#      type: single
+#    topic:
+#      group-id: kafkaGroup1
+#      toipic-name:
+#        - topic1
+#        - topic2
+#        - topic3
 #mybatis:
 #  mapper-locations:
 #    classpath*:com/jdw/springboot/mapper/sqlxml/*.xml
@@ -143,7 +136,6 @@ mybatis-plus:
       #逻辑未删除值 1
       logic-not-delete-value: 1
   #通用枚举类扫描 支持统配符 * 或者 ; 分割
-  typeEnumsPackage: com.jdw.springboot.enums
   configuration:
     #打印 sql
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -167,3 +159,19 @@ custom:
       templatePath: user/boss
   # 系统数据写接口匹配规则(正则表达式)，多个用逗号隔开。后续新增规则直接在此处添加即可
   writeRegx: add.*,save.*,remove.*,update.*,batch.*,clear.*,add.*,append.*,modify.*,edit.*,insert.*,delete.*,do.*,creat.*
+# Actuator组件
+management:
+  endpoint:
+    health:
+      # 健康端点显示信息
+      show-details: always
+  endpoints:
+    web:
+      # 健康组件base-path，默认值为：/actuator
+      base-path: /actuator
+      exposure:
+        # 设置健康组件包含端点
+        include: info,health,beans,mappings
+logging:
+  level:
+    com.jdw.springboot: debug

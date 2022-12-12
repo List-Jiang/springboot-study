@@ -1,7 +1,7 @@
 # springboot-study
 
 #### 介绍
-ListJiang的学习之旅
+蒋德文的学习之旅
 
 #### 软件架构
 软件架构说明

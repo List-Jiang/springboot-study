@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * @author ListJiang
- * @enum 状态值枚举
- * @remark
- * @date 2020/5/2714:01
+ * 状态值枚举
+ *
+ * @author 蒋德文
+ * @since 2020/5/2714:01
  */
 public enum StatusEnum implements IEnum<Integer> {
     EFFECTIVE(1, "有效"),
@@ -15,12 +15,10 @@ public enum StatusEnum implements IEnum<Integer> {
 
     StatusEnum(Integer value, String explain) {
         this.value = value;
-        this.explain = explain;
     }
 
     @JsonValue
     private final Integer value;
-    private final String explain;
 
     @Override
     public Integer getValue() {

@@ -156,7 +156,7 @@ public class ExpressParseTest {
     @Test
     public void test() {
         class Simple {
-            public List<Boolean> booleanList = new ArrayList<Boolean>();
+            public final List<Boolean> booleanList = new ArrayList<Boolean>();
         }
 
         Simple simple = new Simple();
@@ -191,8 +191,9 @@ public class ExpressParseTest {
                 .getValue(context, tesla, String.class);
         // queryResultString = "Nikola Tesla is not a member of the IEEE Society"
     }
+
     @Test
-    public void ElvisOperatorTest(){
+    public void ElvisOperatorTest() {
         ExpressionParser parser = new SpelExpressionParser();
         EvaluationContext context = SimpleEvaluationContext.forReadOnlyDataBinding().build();
 

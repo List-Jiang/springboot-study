@@ -1,6 +1,6 @@
 package com.jdw.sys.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,10 +11,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class 多线程执行任务测试
- * @remark
- * @date 2021/4/7 10:07
+ * @since 2021/4/7 10:07
  */
 @RestController
 @RequestMapping("/thread")
@@ -24,15 +23,15 @@ public class ThreadController {
     public JSONObject futureTask() throws ExecutionException, InterruptedException {
         long start = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
         JSONObject result = new JSONObject();
-        Callable callable1 = () -> {
+        Callable<JSONObject> callable1 = () -> {
             Thread.sleep(100);
-            System.out.println(Thread.currentThread().getName()+"任务1耗时100毫秒");
+            System.out.println(Thread.currentThread().getName() + "任务1耗时100毫秒");
             return JSONObject.parseObject("{\"测试key\":\"任务1耗时100毫秒\"}");
         };
 
-        Callable callable2 = () -> {
+        Callable<JSONObject> callable2 = () -> {
             Thread.sleep(200);
-            System.out.println(Thread.currentThread().getName()+"任务2耗时200毫秒");
+            System.out.println(Thread.currentThread().getName() + "任务2耗时200毫秒");
             return JSONObject.parseObject("{\"测试key\":\"任务2耗时200毫秒\"}");
         };
 

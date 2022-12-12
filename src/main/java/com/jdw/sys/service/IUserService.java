@@ -1,19 +1,18 @@
 package com.jdw.sys.service;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
-import com.jdw.sys.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jdw.sys.entity.User;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author jdw
@@ -26,7 +25,8 @@ public interface IUserService extends IService<User> {
     User getUserById(@Param("id") Long id);
 
     @Async
-    List<User> getUserByName(@Param("name") String name);
+    CompletableFuture<List<User>> getUserByName(@Param("name") String name);
+
     @Cacheable
     User getUserByAccount(@Param("account") String account);
 }

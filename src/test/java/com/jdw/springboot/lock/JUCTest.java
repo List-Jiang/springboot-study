@@ -7,17 +7,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class JUC测试类
- * @remark
- * @date 2021/3/27 22:32
+ * @since 2021/3/27 22:32
  */
 
 
 public class JUCTest {
 
     // 票据资源
-    class Ticket {
+    static class Ticket {
 
         // 总数
         private int size = 2000;
@@ -32,11 +31,7 @@ public class JUCTest {
 
         // 减一
         public boolean sell() {
-            if (size-- > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return size-- > 0;
         }
 
         // 获取剩余数量
@@ -49,7 +44,7 @@ public class JUCTest {
     class People {
         private int ticketSize = 0;
 
-        private String name;
+        private final String name;
 
         public People(String name) {
             this.name = name;

@@ -1,29 +1,25 @@
 package com.jdw.springboot.task;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jdw.springboot.SpringbootApplication;
+import com.alibaba.fastjson2.JSONObject;
+import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.ReflectionUtils;
 
-import javax.annotation.Resource;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.concurrent.*;
-import java.util.function.Function;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.function.Supplier;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class
- * @remark
- * @date 2021/4/7 10:58
+ * @since 2021/4/7 10:58
  */
 @Slf4j
 //@SpringBootTest(classes = SpringbootApplication.class)
@@ -95,9 +91,8 @@ public class ThreadTest {
 
         long start = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
-        JSONObject result = new JSONObject();
-        Callable callable1 = ThreadTest.callable(300, "任务1耗时300毫秒");
-        Callable callable2 = ThreadTest.callable(200, "任务2耗时200毫秒");
+        Callable<String> callable1 = ThreadTest.callable(300, "任务1耗时300毫秒");
+        Callable<String> callable2 = ThreadTest.callable(200, "任务2耗时200毫秒");
 
         FutureTask<String> task1 = new FutureTask<>(callable1);
         FutureTask<String> task2 = new FutureTask<>(callable2);
@@ -116,7 +111,6 @@ public class ThreadTest {
      * 串行
      * {}
      * {}
-     *
      */
     @Test
     public void completableFuture_thenComposeTest() {

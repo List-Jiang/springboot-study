@@ -2,17 +2,13 @@ package com.jdw.springboot;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.function.*;
 
 /**
- * @author ListJiang
- * @class jdk8函数式接口测试
- * @remark
- * @date 2020/12/16 19:24
+ * jdk8函数式接口测试
+ *
+ * @author 蒋德文
+ * @since 2020/12/16 19:24
  */
 public class LambdaTest {
 
@@ -25,7 +21,7 @@ public class LambdaTest {
             System.out.println("判断参数为：" + t);
             return t.equals("Hz");
         };
-        System.out.println(Boolean.toString(isHz.test("Hz")));
+        System.out.println(isHz.test("Hz"));
     }
 
     /**
@@ -45,7 +41,7 @@ public class LambdaTest {
      */
     @Test
     public void ConsumerTest() {
-        Consumer isEnd = (t) -> {
+        Consumer<String> isEnd = t -> {
             System.out.println("开始消费" + t);
             System.out.println("开始消费" + t);
         };
@@ -59,7 +55,7 @@ public class LambdaTest {
     public void FunctionTestCode() {
         Function<Integer, Boolean> function = (t) -> {
             System.out.println("入参:" + t);
-            return t.equals("1") ? true : false;
+            return t.equals("1");
         };
         System.out.println("入参:" + function.apply(1));
     }
@@ -69,9 +65,7 @@ public class LambdaTest {
      */
     @Test
     public void BinaryOperatorTest() {
-        BinaryOperator<Integer> binaryOperator = (t, y) -> {
-            return t * y;
-        };
+        BinaryOperator<Integer> binaryOperator = (t, y) -> t * y;
         System.out.println(binaryOperator.apply(4, 6).toString());
     }
 
@@ -92,9 +86,7 @@ public class LambdaTest {
      */
     @Test
     public void UnaryOperatorTest() {
-        UnaryOperator<String> unaryOperator = (t) -> {
-            return "test";
-        };
+        UnaryOperator<String> unaryOperator = t -> "test";
         System.out.println(unaryOperator.apply("test"));
     }
 

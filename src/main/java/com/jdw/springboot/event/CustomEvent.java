@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @since : 2022/1/18
  */
 public class CustomEvent extends ApplicationEvent {

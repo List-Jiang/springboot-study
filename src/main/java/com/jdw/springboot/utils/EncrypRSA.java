@@ -14,10 +14,9 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class RSA加密工具类
- * @remark
- * @date 2020/9/14 19:56
+ * @since 2020/9/14 19:56
  */
 public class EncrypRSA {
 
@@ -173,25 +172,28 @@ public class EncrypRSA {
         return null;
     }
 
-    /**
-     * 指定解密类型进行解密
-     *
-     * @param key        密钥
-     * @param ciphertext 密文
-     * @param keyType    密钥类型，默认私钥解密
-     */
-    public byte[] decrypt(String key, String ciphertext, String keyType) throws Exception {
-        if (key != null) {
-            byte[] decode = Base64.getDecoder().decode(ciphertext);
-            switch (keyType){
-                case PUBLIC:
-                    return decrypt(getPublicKey(key), decode);
-                case PRIVATE:
-                    return decrypt(getPrivateKey(key), decode);
-            }
-            return decrypt(getPrivateKey(key), decode);
-        }
-        return null;
+    public static void main(String[] args) throws Exception {
+        EncrypRSA rsa = new EncrypRSA();
+        String msg = "qwertyio!@#$%^&*()_+1234567890-=/*-+|，。/、！@#￥%……&（（（）——+";
+        //KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
+        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+        //初始化密钥对生成器，密钥大小为1024位
+        keyPairGen.initialize(1024);
+        //生成一个密钥对，保存在keyPair中
+        KeyPair keyPair = keyPairGen.generateKeyPair();
+        //得到私钥
+        byte[] encrypt = rsa.encrypt((RSAPublicKey) keyPair.getPublic(), "".getBytes());
+        String privateStr = getString((RSAPrivateKey) keyPair.getPrivate());
+        String publicStr = getString((RSAPublicKey) keyPair.getPublic());
+        System.out.println("私钥是：" + privateStr);
+        System.out.println("公钥是：" + publicStr);
+        byte[] ciphertextPrivate = rsa.encrypt(privateStr, msg, EncrypRSA.PRIVATE);
+        byte[] ciphertextPublic = rsa.encrypt(publicStr, msg, EncrypRSA.PUBLIC);
+        System.out.println("原文是———————————————：" + msg);
+        String cleartextPrivate = rsa.decryptToString(privateStr, new String(Base64.getEncoder().encode(ciphertextPublic)), EncrypRSA.PRIVATE);
+        String cleartextPublic = rsa.decryptToString(publicStr, new String(Base64.getEncoder().encode(ciphertextPrivate)), EncrypRSA.PUBLIC);
+        System.out.println("私钥加密公钥解密后明文为：" + cleartextPrivate);
+        System.out.println("公钥加密私钥解密后明文为：" + cleartextPublic);
     }
 
     /**
@@ -289,27 +291,24 @@ public class EncrypRSA {
         return Base64.getEncoder().encodeToString(privateKey.getEncoded());
     }
 
-    public static void main(String[] args) throws Exception {
-        EncrypRSA rsa = new EncrypRSA();
-        String msg = "qwertyio!@#$%^&*()_+1234567890-=/*-+|，。/、！@#￥%……&（（（）——+";
-        //KeyPairGenerator类用于生成公钥和私钥对，基于RSA算法生成对象
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
-        //初始化密钥对生成器，密钥大小为1024位
-        keyPairGen.initialize(1024);
-        //生成一个密钥对，保存在keyPair中
-        KeyPair keyPair = keyPairGen.generateKeyPair();
-        //得到私钥
-        byte[] encrypt = rsa.encrypt((RSAPublicKey) keyPair.getPublic(), "".getBytes());
-        String privateStr = getString((RSAPrivateKey) keyPair.getPrivate());
-        String publicStr = getString((RSAPublicKey) keyPair.getPublic());
-        System.out.println("私钥是："+privateStr);
-        System.out.println("公钥是："+publicStr);
-        byte[] ciphertextPrivate = rsa.encrypt(privateStr, msg, EncrypRSA.PRIVATE);
-        byte[] ciphertextPublic = rsa.encrypt(publicStr, msg, EncrypRSA.PUBLIC);
-        System.out.println("原文是———————————————："+msg);
-        String cleartextPrivate = rsa.decryptToString(privateStr, new String(Base64.getEncoder().encode(ciphertextPublic)), EncrypRSA.PRIVATE);
-        String cleartextPublic = rsa.decryptToString(publicStr,  new String(Base64.getEncoder().encode(ciphertextPrivate)),EncrypRSA.PUBLIC);
-        System.out.println("私钥加密公钥解密后明文为："+cleartextPrivate);
-        System.out.println("公钥加密私钥解密后明文为："+cleartextPublic);
+    /**
+     * 指定解密类型进行解密
+     *
+     * @param key        密钥
+     * @param ciphertext 密文
+     * @param keyType    密钥类型，默认私钥解密
+     */
+    public byte[] decrypt(String key, String ciphertext, String keyType) throws Exception {
+        if (key != null) {
+            byte[] decode = Base64.getDecoder().decode(ciphertext);
+            switch (keyType) {
+                case PUBLIC:
+                    return decrypt(getPublicKey(key), decode);
+                case PRIVATE:
+                    return decrypt(getPrivateKey(key), decode);
+            }
+            return decrypt(getPrivateKey(key), decode);
+        }
+        return null;
     }
 }

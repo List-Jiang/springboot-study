@@ -4,7 +4,6 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.ReadMode;
-import org.redisson.config.SentinelServersConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -13,13 +12,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class
- * @remark
- * @date 2021/3/7 14:31
+ * @since 2021/3/7 14:31
  */
 @Configuration
 public class RedissonConfig {
@@ -35,7 +32,7 @@ public class RedissonConfig {
                 .getSentinel()
                 .getNodes().stream()
                 .map(redisProperties.isSsl() ? "rediss://"::concat : "redis://"::concat)
-                .collect(Collectors.toList());
+                .toList();
         config.useSentinelServers()
                 .addSentinelAddress(newNodes.toArray(new String[3]))
                 .setMasterName(redisProperties.getSentinel().getMaster())

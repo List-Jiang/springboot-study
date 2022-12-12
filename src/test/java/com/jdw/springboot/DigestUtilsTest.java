@@ -6,10 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class 算法测试
- * @remark
- * @date 2021/1/1 22:29
+ * @since 2021/1/1 22:29
  */
 public class DigestUtilsTest {
     @Test

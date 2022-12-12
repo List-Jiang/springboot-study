@@ -3,13 +3,10 @@ package com.jdw.sys.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.AES;
 import com.jdw.sys.entity.Demo;
-import com.jdw.sys.mapper.DemoMapper;
 import com.jdw.sys.service.IDemoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,11 +34,11 @@ public class DemoController {
         String randomKey = AES.generateRandomKey();
 
         // 随机密钥加密
-        String driver = AES.encrypt("com.mysql.cj.jdbc.Driver", randomKey);
-        String url = AES.encrypt("jdbc:mysql://localhost:3306/test1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8", randomKey);
-        String user = AES.encrypt("test1", randomKey);
-        String password = AES.encrypt("12345678", randomKey);
-        String e4c402cc1617adfe = AES.decrypt("b6iFhx7TS4F7IYG3DeVpOQ==", "e4c402cc1617adfe");
+        System.out.println("driver: " + AES.encrypt("com.mysql.cj.jdbc.Driver", randomKey));
+        System.out.println("url: " + AES.encrypt("jdbc:mysql://localhost:3306/test1?serverTimezone=GMT%2b8&zeroDateTimeBehavior=convertToNull&characterEncoding=utf8", randomKey));
+        System.out.println("user: " + AES.encrypt("test1", randomKey));
+        System.out.println("password: " + AES.encrypt("12345678", randomKey));
+        System.out.println("e4c402cc1617adfe: " + AES.decrypt("b6iFhx7TS4F7IYG3DeVpOQ==", "e4c402cc1617adfe"));
 
 
         return b ? "1" : "0";

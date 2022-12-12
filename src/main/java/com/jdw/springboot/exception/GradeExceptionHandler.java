@@ -1,26 +1,24 @@
 package com.jdw.springboot.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author ListJiang
- * @class description  全局捕获异常类、只能捕获被代码抛出未处理的异常
- * @remark 如果异常被try{}catch(){}处理了，自然无法进入这里
- * @date 2020/5/2 15:45
+ * 全局捕获异常类、只能捕获被代码抛出未处理的异常
+ *
+ * @author 蒋德文
+ * @since 2020/5/2 15:45
  */
 @Slf4j
 @RestControllerAdvice
@@ -30,24 +28,15 @@ public class GradeExceptionHandler {
     // 使用 MethodArgumentNotValidException.class 无法处理通过 @ModelAttribute 绑定的 GET 请求
     @ExceptionHandler(value = BindException.class)
     public Object errorHandler(HttpServletRequest request, BindException e) {
-        // 详情
-        List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
-        // 移除敏感信息
-        List<Map<String, Object>> collect = allErrors.stream().map(t -> {
-            Map<String, Object> map = new HashMap<>(2);
-            map.put("defaultMessage", t.getDefaultMessage());
-            switch (t) {
-                case FieldError fieldError -> {
-                    map.put("rejectedValue", fieldError.getRejectedValue());
-                    map.put("defaultMessage", t.getDefaultMessage());
-                }
-                default -> {
-                }
-            }
-            return map;
-        }).collect(Collectors.toList());
-
-        return collect;
+        return e.getBindingResult().getAllErrors()
+                .stream()
+                .map(t -> switch (t) {
+                    case FieldError fieldError ->
+                            Map.of("rejectedValue", Objects.requireNonNull(fieldError.getRejectedValue())
+                                    , "rejectedMessage", Objects.requireNonNull(t.getDefaultMessage()));
+                    default -> Map.of("rejectedMessage", Objects.requireNonNull(t.getDefaultMessage()));
+                })
+                .collect(Collectors.toList());
     }
 
     @ExceptionHandler(HttpMessageConversionException.class)

@@ -1,5 +1,6 @@
 package com.jdw.springboot.aspect;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,14 +9,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class controller切面处理
- * @remark
- * @date 2020/6/810:22
+ * @since 2020/6/810:22
  */
 //标明这是一个切面类
 @Aspect
@@ -40,18 +39,20 @@ public class ControllerAspect {
     public void doBefor(JoinPoint joinPoint) {
         //接受请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        //打印请求内容
-        log.info("URL：" + request.getRequestURI());
-        log.info("HTTP_METHOD：" + request.getMethod());
-//        log.info("IP："+request.getRemoteAddr());
-//        log.info("HOST："+request.getRemoteHost());
-//        log.info("PORT："+request.getRemotePort());
-        Enumeration<String> parameterNames = request.getParameterNames();
-        log.info("请求参数列表为：");
-        while (parameterNames.hasMoreElements()) {
-            String s = parameterNames.nextElement();
-            log.info(s + "：" + request.getParameter(s));
+        if (attributes != null && attributes.getRequest() != null) {
+            HttpServletRequest request = attributes.getRequest();
+            //打印请求内容
+            log.info("URL：" + request.getRequestURI());
+            log.info("HTTP_METHOD：" + request.getMethod());
+            log.info("IP：" + request.getRemoteAddr());
+            log.info("HOST：" + request.getRemoteHost());
+            log.info("PORT：" + request.getRemotePort());
+            Enumeration<String> parameterNames = request.getParameterNames();
+            log.info("请求参数列表为：");
+            while (parameterNames.hasMoreElements()) {
+                String s = parameterNames.nextElement();
+                log.info(s + "：" + request.getParameter(s));
+            }
         }
     }
 

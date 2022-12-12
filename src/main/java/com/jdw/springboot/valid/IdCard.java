@@ -10,11 +10,11 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = RegionValidator.class)
-public @interface Region {
-    String[] regexps() default {};
+@Constraint(validatedBy = IdCardValidator.class)
+public @interface IdCard {
+    String value();
 
-    String message() default "非法的区划名称";
+    String message() default "非法的身份证号码";
 
     /**
      * 将validator进行分类，不同的类group中会执行不同的validator操作
@@ -25,6 +25,7 @@ public @interface Region {
 
     /**
      * 主要是针对bean，很少使用
+     *
      * @return 负载
      */
     Class<? extends Payload>[] payload() default {};

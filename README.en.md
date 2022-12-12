@@ -1,7 +1,7 @@
 # springboot-study
 
 #### Description
-ListJiang的学习之旅
+蒋德文的学习之旅
 
 #### Software Architecture
 Software architecture description

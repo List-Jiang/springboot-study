@@ -1,9 +1,7 @@
 package com.jdw.sys.mapper;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
-import com.jdw.sys.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Insert;
+import com.jdw.sys.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author jdw

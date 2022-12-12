@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.jdw.springboot.format.serializer.MoneyDeSerializer;
 import com.jdw.springboot.format.serializer.MoneySerializer;
+import com.jdw.springboot.valid.IdCard;
 import com.jdw.springboot.valid.Region;
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
@@ -39,4 +40,7 @@ public class BodyFormatter {
     private String city;
     @Region(regexps = "^[\u4E00-\u9FA5]*?[区,县]$", message = "非法的区县名称")
     private String county;
+
+    @IdCard(value = "")
+    private String id;
 }

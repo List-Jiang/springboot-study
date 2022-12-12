@@ -7,15 +7,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
- * @author ListJiang
- * @class 线程安全问题简单测试
- * @remark 该方案其实是伪修复，只是确保了单个数据操作的原子性。如果中间出现问题，是无法保证线程安全的
- * @date 2021/3/29 17:07
+ * 线程安全问题简单测试
+ * 该方案其实是伪修复，只是确保了单个数据操作的原子性。如果中间出现问题，是无法保证线程安全的
+ *
+ * @author 蒋德文
+ * @since 2021/3/29 17:07
  */
 public class AtomicTest {
 
-    private AtomicInteger A = new AtomicInteger(100);
-    private AtomicInteger B = new AtomicInteger(0);
+    private final AtomicInteger A = new AtomicInteger(100);
+    private final AtomicInteger B = new AtomicInteger(0);
 
     private void sleep_100() {
         // 自定义当前线程休眠100毫秒，模拟业务数据处理带来的时间消耗

@@ -1,63 +1,52 @@
 package com.jdw.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jdw.sys.entity.*;
 import com.jdw.sys.mapper.*;
 import com.jdw.sys.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jdw
  * @since 2020-05-27
  */
 @Service
+@RequiredArgsConstructor
 //配置独立数据源
 //@DS("test_2")
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-    @Autowired(required = false)
-    UserMapper userMapper;
-
-    @Autowired
-    UserRoleMapper userRoleMapper;
-
-    @Autowired
-    RoleMapper roleMapper;
-
-    @Autowired
-    RolePermissionsMapper rolePermissionsMapper;
-
-    @Autowired
-    PermissionsMapper permissionsMapper;
+    private final UserMapper userMapper;
+    private final UserRoleMapper userRoleMapper;
+    private final RoleMapper roleMapper;
+    private final RolePermissionsMapper rolePermissionsMapper;
+    private final PermissionsMapper permissionsMapper;
 
     @Override
     public List<String> AllAccount() {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         List<User> users = userMapper.selectList(wrapper);
         List<String> account = new ArrayList<>();
-        users.forEach(st->{
-            account.add(st.getAccount());
-        });
+        users.forEach(st -> account.add(st.getAccount()));
         return account;
     }
 
     /**
      * 通过用户id获取用户信息
-     * @param id
-     * @return
      */
-    public User getUserById(@Param("id") Long id){
+    public User getUserById(@Param("id") Long id) {
         //获取一个用户
         User user = userMapper.selectById(id);
         //获取用户角色关系 list
@@ -69,18 +58,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //获取一个角色
             Role role = roleMapper.selectById(userRole.getRoleId());
             //新建权限集合
-            Set<Permission> permissionSet = new HashSet<>();
+            Set<Permission> permissionsSet = new HashSet<>();
             //获取角色权限关系 list
             List<RolePermission> rolePermissionList = rolePermissionsMapper.getRolePermissionsByRoleId(role.getId());
             //迭代角色权限关系
             rolePermissionList.forEach(rolePermission -> {
                 //获取一个权限
-                Permission permission = permissionsMapper.selectById(rolePermission.getPermissionsId());
+                Permission permissions = permissionsMapper.selectById(rolePermission.getPermissionsId());
                 //添加权限对象至权限集合
-                permissionSet.add(permission);
+                permissionsSet.add(permissions);
             });
             //角色设置权限集合
-            role.setPermissions(permissionSet);
+            role.setPermissions(permissionsSet);
             //添加角色对象至角色集合
             roleSet.add(role);
         });
@@ -89,16 +78,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return user;
     }
 
-    public List<User> getUserByName(@Param("name") String name){
-        return userMapper.getUserByName(name);
+    public CompletableFuture<List<User>> getUserByName(@Param("name") String name) {
+        return CompletableFuture.completedFuture(userMapper.getUserByName(name));
     }
 
     @Override
     public User getUserByAccount(String account) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(User::getAccount, account);
-        User user = getOne(wrapper);
-        return user;
+        return getOne(wrapper);
     }
 
 }

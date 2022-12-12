@@ -6,7 +6,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.web.context.support.ServletRequestHandledEvent;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @since 2022/1/18
  * description 自定义事件监听器配置类
  */

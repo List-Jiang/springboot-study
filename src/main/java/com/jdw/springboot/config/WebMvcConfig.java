@@ -2,7 +2,7 @@ package com.jdw.springboot.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author ListJiang
- * @class Spring MVC配置
- * @remark
- * @date 2020/9/20 17:58
+ * Spring MVC配置
+ *
+ * @author 蒋德文
+ * @since 2020/9/20 17:58
  */
-@Component
+@Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("#{'${spring.resource.static-locations}'.split(',')}")
@@ -23,7 +23,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 配值拦截器允许任意跨域请求
-     * @return
      */
     @Bean
     public CorsFilter corsFilter() {
@@ -43,7 +42,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * 静态资源配置
-     * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

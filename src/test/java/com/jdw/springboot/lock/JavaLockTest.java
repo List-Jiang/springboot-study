@@ -4,32 +4,22 @@ package com.jdw.springboot.lock;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * @author ListJiang
+ * @author 蒋德文
  * @class Java基础锁
- * @remark
- * @date 2021/3/27 12:14
+ * @since 2021/3/27 12:14
  */
 
 class Ticket {
 
     // 总数
-    private AtomicInteger size = new AtomicInteger(2000);
+    private final AtomicInteger size = new AtomicInteger(2000);
 
 
     public Ticket() {
@@ -61,7 +51,7 @@ class People {
     private int ticketSize = 0;
 
     // 人名
-    private String name;
+    private final String name;
 
     public People(String name) {
         this.name = name;
