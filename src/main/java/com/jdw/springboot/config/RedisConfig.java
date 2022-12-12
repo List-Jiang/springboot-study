@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
@@ -27,7 +28,7 @@ import static io.lettuce.core.ReadFrom.REPLICA_PREFERRED;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisConfig implements CachingConfigurer {
 
     private final RedisProperties redisProperties;
 
@@ -39,8 +40,10 @@ public class RedisConfig extends CachingConfigurerSupport {
                 .master(redisProperties.getSentinel().getMaster());
         redisProperties.getSentinel().getNodes().forEach(
                 node -> redisSentinelConfiguration.sentinel(node.split(":")[0], Integer.valueOf(node.split(":")[1])));
-        redisSentinelConfiguration.setPassword(redisProperties.getPassword());
-//            redisSentinelConfiguration.setUsername(redisProperties.getUsername());
+        if (StringUtils.isNoneEmpty(redisProperties.getPassword()))
+            redisSentinelConfiguration.setPassword(redisProperties.getPassword());
+        if (StringUtils.isNoneEmpty(redisProperties.getUsername()))
+            redisSentinelConfiguration.setUsername(redisProperties.getUsername());
         redisSentinelConfiguration.setSentinelPassword(redisProperties.getSentinel().getPassword());
         return new LettuceConnectionFactory(redisSentinelConfiguration, LettuceClientConfiguration.builder()
                 .readFrom(REPLICA_PREFERRED).build());
@@ -60,10 +63,9 @@ public class RedisConfig extends CachingConfigurerSupport {
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         log.info(" --- redis config init --- ");
         // 设置序列化
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
+        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(om, Object.class);
         // 配置redisTemplate
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);

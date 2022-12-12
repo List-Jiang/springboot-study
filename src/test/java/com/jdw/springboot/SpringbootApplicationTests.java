@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.Set;

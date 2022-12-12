@@ -1,12 +1,12 @@
 package com.jdw.springboot.task;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -91,7 +91,6 @@ public class ThreadTest {
 
         long start = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
 
-        JSONObject result = new JSONObject();
         Callable callable1 = ThreadTest.callable(300, "任务1耗时300毫秒");
         Callable callable2 = ThreadTest.callable(200, "任务2耗时200毫秒");
 

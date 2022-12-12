@@ -1,14 +1,16 @@
 package com.jdw.springboot.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.Header;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
-import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHeader;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.DefaultConnectionKeepAliveStrategy;
+import org.apache.hc.client5.http.impl.DefaultHttpRequestRetryStrategy;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.message.BasicHeader;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -24,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * restTemplate配置类
+ *
  * @author ListJiang
  * @since 2021/2/18 15:42
  */
@@ -60,21 +63,18 @@ public class RestTemplateConfig {
     }
 
     @Bean
-    public CloseableHttpClient httpClient() {
+    public HttpClient httpClient() {
         // 长连接保持30秒
-        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(30, TimeUnit.SECONDS);
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         //设置整个连接池最大连接数 根据自己的场景决定
         connectionManager.setMaxTotal(500);
         //同路由的并发数,路由是对maxTotal的细分
         connectionManager.setDefaultMaxPerRoute(500);
         //requestConfig
         RequestConfig requestConfig = RequestConfig.custom()
-                //服务器返回数据(response)的时间，超过该时间抛出read timeout
-                .setSocketTimeout(10000)
-                //连接上服务器(握手成功)的时间，超出该时间抛出connect timeout
-                .setConnectTimeout(5000)
-                //从连接池中获取连接的超时时间，超过该时间未拿到可用连接，会抛出org.apache.http.conn.ConnectionPoolTimeoutException: Timeout waiting for connection from pool
-                .setConnectionRequestTimeout(500)
+                .setConnectionRequestTimeout(10, TimeUnit.SECONDS)
+                .setConnectionKeepAlive(TimeValue.ofSeconds(10))
+                .setResponseTimeout(Timeout.of(10, TimeUnit.SECONDS))
                 .build();
         //headers
         List<Header> headers = new ArrayList<>();
@@ -90,8 +90,7 @@ public class RestTemplateConfig {
                 .setDefaultHeaders(headers)
                 // 保持长连接配置，需要在头添加Keep-Alive
                 .setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy())
-                //重试次数，默认是3次，没有开启
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(2, true))
+                .setRetryStrategy(new DefaultHttpRequestRetryStrategy(3, TimeValue.ofSeconds(3)))
                 .build();
     }
 }

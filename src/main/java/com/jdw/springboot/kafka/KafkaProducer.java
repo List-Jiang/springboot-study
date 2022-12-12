@@ -1,6 +1,10 @@
 package com.jdw.springboot.kafka;
 
 import com.alibaba.fastjson2.JSONObject;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -8,21 +12,20 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * kafka消息生产者
+ *
  * @author ListJiang
  * @since 2020/7/2615:06
  */
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/kafka")
+@Tag(name = "kafka消息生产者")
 public class KafkaProducer {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
@@ -40,6 +43,7 @@ public class KafkaProducer {
     }
 
     @PostMapping("/send")
+    @Operation(summary = "发送消息", description = "接口备注")
     public String sendMessage(@RequestBody JSONObject jsonObject) {
         kafkaTemplate.send("topic1", jsonObject.toString());
         kafkaTemplate.send("testTopic", 1, "key", jsonObject.toString());
@@ -54,9 +58,7 @@ public class KafkaProducer {
 
     @RequestMapping("/test1")
     public String test1(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
+        for (Cookie cookie : request.getCookies()) {
             System.out.println(cookie.getName());
             System.out.println(cookie.getValue());
             System.out.println(cookie.getPath());

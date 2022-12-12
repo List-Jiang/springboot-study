@@ -10,7 +10,7 @@ import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;

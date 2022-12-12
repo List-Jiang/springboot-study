@@ -3,7 +3,7 @@ package com.jdw.springboot.format;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
