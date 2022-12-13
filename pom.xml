@@ -281,7 +281,7 @@
                     <pushImage>false</pushImage>
                     <serverId>docker</serverId>
                     <!--<dockerCertPath>${project.basedir}\src\main\resources\ca.crt</dockerCertPath>-->
-                    <dockerCertPath>E:\test</dockerCertPath>
+                    <dockerCertPath>~/.cert-path</dockerCertPath>
                     <imageName>192.168.0.9/app/${project.artifactId}:${project.version}</imageName>
                     <baseImage>amazoncorretto:17.0.5</baseImage>
                     <maintainer>2754005464@qq.com</maintainer>
