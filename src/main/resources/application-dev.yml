@@ -8,6 +8,11 @@ spring:
     restart:
       enabled: true
       additional-paths: src/main/java
+  security:
+    user:
+      name: user
+      password: password
+      roles: SWAGGER,ACTUATOR
   datasource:
     dynamic:
       #设置默认的数据源或者数据源组,默认值即为master
@@ -175,3 +180,4 @@ management:
 logging:
   level:
     com.jdw.springboot: debug
+    org.springframework.security: debug
