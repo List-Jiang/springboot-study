@@ -1,4 +1,4 @@
-package com.jdw.springboot.config;
+package com.jdw.springboot.properties;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ import java.util.Set;
 @Data
 //自定义参数空间，会自动扫描 custom 下的所有配置参数(默认支持驼峰转换)并尝试注入到该实体类的同名属性中。
 @ConfigurationProperties("custom")
-public class CustomVariableConfig {
+public class CustomProperties {
     /*
     @Value("#{${custom.map}}")
     private Map<String,String> map;

@@ -3,6 +3,7 @@ package com.jdw.sys.controller;
 
 import com.jdw.sys.entity.User;
 import com.jdw.sys.service.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ public class UserController {
     }
 
     @RequestMapping("/test")
+    @Operation(summary = "用户测试")
     public void localDateTime(User user) {
         System.out.println(user.getCreateDate());
         System.out.println(user.getUpdateDate());

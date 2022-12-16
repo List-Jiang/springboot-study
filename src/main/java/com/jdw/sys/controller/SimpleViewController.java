@@ -1,6 +1,6 @@
 package com.jdw.sys.controller;
 
-import com.jdw.springboot.config.CustomVariableConfig;
+import com.jdw.springboot.properties.CustomProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -26,14 +26,14 @@ public class SimpleViewController {
     private List<String> list;
     //引用使用 ConfigurationProperties注解 的参数配置类
     @Autowired
-    private CustomVariableConfig customVariableConfig;
+    private CustomProperties customProperties;
 
     @GetMapping("/user/{view}")
     public String Simple(@PathVariable(name = "view") String view) {
         String templatePaath = "500.ftl";
-        for (int i = 0; i < customVariableConfig.getSimpleViewControllers().size(); i++) {
-            String urlParame = customVariableConfig.getSimpleViewControllers().get(i).get("urlParame");
-            templatePaath = customVariableConfig.getSimpleViewControllers().get(i).get("templatePath");
+        for (int i = 0; i < customProperties.getSimpleViewControllers().size(); i++) {
+            String urlParame = customProperties.getSimpleViewControllers().get(i).get("urlParame");
+            templatePaath = customProperties.getSimpleViewControllers().get(i).get("templatePath");
             if (urlParame.equals(view)) {
                 return templatePaath;
             }

@@ -28,7 +28,7 @@
         <mybatis.plus.generator.version>3.5.3</mybatis.plus.generator.version>
         <httpclient5.version>5.2.1</httpclient5.version>
         <commons-codec.version>1.15</commons-codec.version>
-        <swagger.version>2.2.1</swagger.version>
+        <springdoc.version>2.0.0</springdoc.version>
         <freemarker.version>2.3.31</freemarker.version>
     </properties>
 
@@ -117,7 +117,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.0.0</version>
+            <version>${springdoc.version}</version>
         </dependency>
         <!--springdoc end-->
         <dependency>

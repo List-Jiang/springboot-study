@@ -164,7 +164,18 @@ custom:
       templatePath: user/boss
   # 系统数据写接口匹配规则(正则表达式)，多个用逗号隔开。后续新增规则直接在此处添加即可
   writeRegx: add.*,save.*,remove.*,update.*,batch.*,clear.*,add.*,append.*,modify.*,edit.*,insert.*,delete.*,do.*,creat.*
-# Actuator组件
+security:
+  auth:
+    user:
+      admin:
+        name: admin
+        password: admin
+        roles: SWAGGER,ACTUATOR
+      swagger:
+        name: swagger
+        password: swagger
+        roles: SWAGGER
+# Actuator 组件
 management:
   endpoint:
     health:
@@ -176,7 +187,10 @@ management:
       base-path: /actuator
       exposure:
         # 设置健康组件包含端点
-        include: info,health,beans,mappings
+        include: info,health,beans,mappings,openapi,swagger-ui
+# springdoc 配置
+springdoc:
+  show-actuator: true
 logging:
   level:
     com.jdw.springboot: debug
