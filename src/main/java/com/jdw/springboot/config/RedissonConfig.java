@@ -1,15 +1,15 @@
 package com.jdw.springboot.config;
 
+import lombok.RequiredArgsConstructor;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.ReadMode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -19,10 +19,11 @@ import java.util.List;
  * @since 2021/3/7 14:31
  */
 @Configuration
+@RequiredArgsConstructor
+@EnableConfigurationProperties(RedisProperties.class)
 public class RedissonConfig {
 
-    @Autowired
-    RedisProperties redisProperties;
+    private final RedisProperties redisProperties;
 
     @Bean("redissonClient")
     @ConditionalOnProperty(prefix = "spring.redis", name = "sentinel.nodes")
@@ -45,14 +46,14 @@ public class RedissonConfig {
     }
 
     @Bean("redissonClient")
-    @ConditionalOnProperty(prefix = "spring.redis", name = "host")
-    RedissonClient redissonClient() {
+    @ConditionalOnProperty(prefix = "spring.redis", name = "url")
+    RedissonClient SingleServerConfig() {
         Config config = new Config();
         config.useSingleServer()
-                .setAddress(redisProperties.isSsl() ? "rediss://" : "redis://" + redisProperties.getHost() + ":" + redisProperties.getPort());
-        if (StringUtils.hasLength(redisProperties.getPassword())) {
-            config.useSingleServer().setPassword(redisProperties.getPassword());
-        }
+                .setUsername(redisProperties.getUsername())
+                .setPassword(redisProperties.getPassword())
+                .setAddress(redisProperties.getUrl());
         return Redisson.create(config);
     }
+
 }

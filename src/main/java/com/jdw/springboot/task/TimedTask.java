@@ -2,7 +2,7 @@ package com.jdw.springboot.task;
 
 import com.jdw.springboot.async.AsyncTest;
 import com.jdw.springboot.properties.CustomProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +16,10 @@ import java.util.Date;
  */
 //交给 spring 管理
 @Component
+@RequiredArgsConstructor
 public class TimedTask {
-    @Autowired
-    private AsyncTest asyncTest;
-    @Autowired
-    private CustomProperties variableConfig;
+    private final AsyncTest asyncTest;
+    private final CustomProperties variableConfig;
     private static int t = 0;
 //    标明这个方法是个定时任务,每两秒创建一个等待上一个完成后执行。
 //    上一个执行完毕，新的立即执行。

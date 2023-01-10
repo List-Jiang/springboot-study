@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2020/5/2714:43
  */
 @Configuration
-public class Config1 {
+public class JacksonConfig {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer customizer() {
         return builder -> builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
