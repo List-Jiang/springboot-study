@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jdw</groupId>
@@ -30,6 +30,7 @@
         <commons-codec.version>1.15</commons-codec.version>
         <springdoc.version>2.0.2</springdoc.version>
         <freemarker.version>2.3.31</freemarker.version>
+        <jsonpath.version>2.7.0</jsonpath.version>
     </properties>
 
     <dependencies>
@@ -161,6 +162,12 @@
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
             <version>${httpclient5.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${jsonpath.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!--测试数据生成插件-->
