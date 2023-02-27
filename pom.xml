@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jdw</groupId>
@@ -20,12 +20,12 @@
 
     <properties>
         <java.version>17</java.version>
-        <redisson.version>3.19.1</redisson.version>
-        <fastJson2.version>2.0.22</fastJson2.version>
+        <redisson.version>3.19.3</redisson.version>
+        <fastJson2.version>2.0.24</fastJson2.version>
         <guava.version>31.1-jre</guava.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
-        <mybatis.plus.generator.version>3.5.3</mybatis.plus.generator.version>
+        <mybatis.plus.generator.version>3.5.3.1</mybatis.plus.generator.version>
         <httpclient5.version>5.2.1</httpclient5.version>
         <commons-codec.version>1.15</commons-codec.version>
         <springdoc.version>2.0.2</springdoc.version>
@@ -82,8 +82,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -250,54 +250,79 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
+                <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>tag-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>tag</goal>
-                        </goals>
-                        <configuration>
-                            <image>192.168.0.9/app/${project.artifactId}:${project.version}</image>
-                            <newName>${project.artifactId}:latest</newName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>remove-image</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>removeImage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <version>0.41.0</version>
                 <configuration>
-                    <forceTags>true</forceTags>
-                    <pushImage>false</pushImage>
-                    <serverId>docker</serverId>
-                    <!--<dockerCertPath>${project.basedir}\src\main\resources\ca.crt</dockerCertPath>-->
-                    <dockerCertPath>~/.cert-path</dockerCertPath>
-                    <imageName>192.168.0.9/app/${project.artifactId}:${project.version}</imageName>
-                    <baseImage>amazoncorretto:17.0.5</baseImage>
-                    <maintainer>2754005464@qq.com</maintainer>
-                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
-                    <resources>
-                        <resource>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
+                    <!--<dockerHost>tcp://localhost:2375</dockerHost>-->
+                    <!--<certPath>src/main/dockerCerts</certPath>-->
+                    <images>
+                        <image>
+                            <alias>service</alias>
+                            <name>jdw/springboot-study:${project.version}</name>
+                            <build>
+                                <from>amazoncorretto:17.0.5</from>
+                                <maintainer>2754005464@qq.com</maintainer>
+                                <tags>
+                                    <tag>latest</tag>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                                <ports>
+                                    <port>8080</port>
+                                </ports>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <cmd>java -jar /maven/${project.artifactId}-${project.version}.jar</cmd>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>Jib-With-Assembly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>jdw/${project.artifactId}</name>
+                                    <build>
+                                        <from>amazoncorretto:17.0.5</from>
+                                        <assembly>
+                                            <name>my-project-assembly</name>
+                                            <inline>
+                                                <id>copy-test-file</id>
+                                                <files>
+                                                    <file>
+                                                        <source>
+                                                            ${project.basedir}/target/${project.artifactId}-${project.version}.jar
+                                                        </source>
+                                                        <outputDirectory>.</outputDirectory>
+                                                    </file>
+                                                </files>
+                                            </inline>
+                                            <targetDir>/deployments</targetDir>
+                                        </assembly>
+                                        <cmd>java -jar
+                                            /my-project-assembly/${project.artifactId}-${project.version}.jar
+                                        </cmd>
+                                        <ports>
+                                            <port>8080</port>
+                                        </ports>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

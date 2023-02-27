@@ -14,20 +14,36 @@ spring:
       password: password
       roles: SWAGGER,ACTUATOR
   datasource:
-    dynamic:
-      #设置默认的数据源或者数据源组,默认值即为master
-      #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动会使用默认数据源.
-      strict: true
-      datasource:
-        master:
-          driver-class-name: org.h2.Driver
-          url: jdbc:h2:file:/data/demo
-          username: sa
-          password: sa
+    #    dynamic:
+    #      primary: master
+    #      strict: true
+    #      datasource:
+    #        master:
+    #          driver-class-name: com.mysql.cj.jdbc.Driver
+    #          url: jdbc:mysql://localhost:3306/test
+    #          # url: jdbc:h2:mem:test
+    #          username: sa
+    #          password: sa
+    #url: jdbc:mysql://localhost:3306/test
+    url: jdbc:h2:~/test
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:sql/demo
     username: sa
     password: sa
+    type: com.zaxxer.hikari.HikariDataSource
+  #  driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings.trace: false
+      settings.web-allow-others: false
+  sql:
+    init:
+      username: sa
+      password: sa
+      schema-locations: classpath:sql/schema.sql
+      data-locations: classpath:sql/data.sql
+      mode: always
   servlet:
     multipart:
       enabled: true
@@ -114,15 +130,6 @@ spring:
 #        - topic1
 #        - topic2
 #        - topic3
-#mybatis:
-#  mapper-locations:
-#    classpath*:com/jdw/springboot/mapper/sqlxml/*.xml
-#  type-aliases-package: com.jdw.bean
-#  #  配置mybatis开启驼峰命名
-#  configuration:
-#    map-underscore-to-camel-case: true
-#    #打印mybatis所有SQL执行
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 mybatis-plus:
   mapper-locations: classpath:mapping/*.xml
   global-config:
