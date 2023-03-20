@@ -28,10 +28,11 @@ public class SecurityConfig {
                         .requestMatchers("/actuator", "/actuator/**", "/v3/api-docs/actuator").hasRole("ACTUATOR")
                         .requestMatchers("/swagger-ui", "/swagger-ui/**").hasRole("SWAGGER")
                         //.requestMatchers("/sys/user", "/sys/user/**", "/v3/api-docs/sys/user").hasRole("SYS_USER")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(withDefaults())
-                .formLogin(withDefaults());
+                .formLogin(withDefaults())
+                .csrf().disable();
         return http.build();
     }
 

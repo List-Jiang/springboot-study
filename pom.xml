@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jdw</groupId>
@@ -202,11 +202,15 @@
 
     <repositories>
         <repository>
-            <id>ali</id>
+            <id>aliyun-central</id>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+        <repository>
+            <id>aliyun-public</id>
             <url>https://maven.aliyun.com/repository/public</url>
         </repository>
         <repository>
-            <id>sonatype</id>
+            <id>aliyun-sonatype</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
@@ -317,10 +321,11 @@
                                             </inline>
                                             <targetDir>/deployments</targetDir>
                                         </assembly>
-                                        <cmd>java -jar
-                                            /my-project-assembly/${project.artifactId}-${project.version}.jar
+                                        <cmd>java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+                                            -jar /my-project-assembly/${project.artifactId}-${project.version}.jar
                                         </cmd>
                                         <ports>
+                                            <port>5005</port>
                                             <port>8080</port>
                                         </ports>
                                     </build>
