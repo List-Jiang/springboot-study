@@ -14,22 +14,27 @@ spring:
       password: password
       roles: SWAGGER,ACTUATOR
   datasource:
-    #    dynamic:
-    #      primary: master
-    #      strict: true
-    #      datasource:
-    #        master:
-    #          driver-class-name: com.mysql.cj.jdbc.Driver
-    #          url: jdbc:mysql://localhost:3306/test
-    #          # url: jdbc:h2:mem:test
-    #          username: sa
-    #          password: sa
+    dynamic:
+      primary: master
+      strict: true
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/test
+          # url: jdbc:h2:mem:test
+          username: sa
+          password: sa
     #url: jdbc:mysql://localhost:3306/test
-    url: jdbc:h2:~/test
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: sa
-    type: com.zaxxer.hikari.HikariDataSource
+    #url: jdbc:h2:~/test
+    #driver-class-name: org.h2.Driver
+    #username: sa
+    #password: sa
+    #type: com.zaxxer.hikari.HikariDataSource
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: jdbc:mysql://localhost:3306/test
+  #    # url: jdbc:h2:mem:test
+  #    username: sa
+  #    password: sa
   #  driver-class-name: org.h2.Driver
   h2:
     console:
@@ -37,13 +42,14 @@ spring:
       path: /h2-console
       settings.trace: false
       settings.web-allow-others: false
+  #　TODO: 数据库初始化有问题，好像只能在jpa或jdbc上使用。先暂时注释
   sql:
     init:
       username: sa
       password: sa
       schema-locations: classpath:sql/schema.sql
       data-locations: classpath:sql/data.sql
-      mode: always
+      mode: never
   servlet:
     multipart:
       enabled: true

@@ -1,14 +1,14 @@
 package com.jdw.sys.controller;
 
 
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.AES;
+import com.jdw.sys.designpatterns.crp.GroupHandlerService;
 import com.jdw.sys.entity.Demo;
 import com.jdw.sys.service.IDemoService;
+import com.jdw.sys.vo.Result;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys/demo")
 public class DemoController {
     private final IDemoService service;
+    private final GroupHandlerService handlerService;
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") String id) {
@@ -42,6 +43,12 @@ public class DemoController {
 
 
         return b ? "1" : "0";
+    }
+
+    @PostMapping("/handel")
+    public Result<JSONObject> handler(@RequestBody JSONObject jsonObject) {
+        handlerService.handle(jsonObject);
+        return Result.ok(jsonObject);
     }
 
 }

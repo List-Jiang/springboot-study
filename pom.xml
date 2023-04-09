@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.jdw</groupId>
@@ -21,7 +21,7 @@
     <properties>
         <java.version>17</java.version>
         <redisson.version>3.20.0</redisson.version>
-        <fastJson2.version>2.0.25</fastJson2.version>
+        <fastJson2.version>2.0.27</fastJson2.version>
         <guava.version>31.1-jre</guava.version>
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
